@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "28407442815",
+    "firebase_url": "https://funapp-c23d4.firebaseio.com",
+    "project_id": "funapp-c23d4",
+    "storage_bucket": "funapp-c23d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28407442815:android:7db0f1e19f387b26",
+        "android_client_info": {
+          "package_name": "br.com.anderltda.funapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28407442815-4olilbmobka6cokcue5hduuab2ci1dki.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.anderltda.funapp",
+            "certificate_hash": "6dc73d943fd9f4ace8f808dd460846ca3208158b"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc8Erjk-J0b_psttnp3D5-b0Wzf3q63ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28407442815-8cca8n98gtohlaeajcff2d43aev12rbi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
