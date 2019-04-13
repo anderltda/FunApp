@@ -8,18 +8,20 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.Toast
 import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.adapter.ItemAdapter
 import br.com.anderltda.funapp.model.State
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.android.synthetic.main.activity_main2.*
 
 class Main2Activity : AppCompatActivity() {
 
     companion object {
         const val SORT_NAME = "name"
-        const val SORT_POPULATION = "message"
+        const val SORT_POPULATION = "population"
     }
 
     private lateinit var root: ViewGroup
@@ -30,7 +32,7 @@ class Main2Activity : AppCompatActivity() {
     }
 
     private val refStates by lazy {
-        firestore.collection("users")
+        firestore.collection("talks")
     }
 
     private var sort = SORT_NAME
@@ -63,7 +65,8 @@ class Main2Activity : AppCompatActivity() {
         }
 
         adapter = ItemAdapter({
-            refStates.orderBy(sort, Query.Direction.ASCENDING)
+            refStates.limit(10)
+                .orderBy(sort, Query.Direction.ASCENDING)
         })
 
         adapter.onDeleteListener = { position ->
@@ -90,7 +93,6 @@ class Main2Activity : AppCompatActivity() {
         list.layoutManager = layoutManager
         adapter.setupOnScrollListener(list, layoutManager)
 
-
         adapter.onLoadingMore = {
             log("onLoadingMore")
         }
@@ -99,6 +101,15 @@ class Main2Activity : AppCompatActivity() {
         }
         adapter.onHasLoadedAll = {
             log("onHasLoadedAll")
+        }
+
+        bt_send.setOnClickListener {
+
+
+
+            Toast.makeText(this, et_message.text, Toast.LENGTH_LONG).show()
+
+            et_message.clearFocus()
         }
     }
 
@@ -125,8 +136,8 @@ class Main2Activity : AppCompatActivity() {
     fun incrementPopulation(state: State, docRef: DocumentReference) {
         firestore.runTransaction { transaction ->
             val snapshot = transaction.get(docRef)
-            val newPopulation = snapshot.getDouble("message")!! + 1
-            transaction.update(docRef, "message", newPopulation)
+            val newPopulation = snapshot.getDouble("population")!! + 1
+            transaction.update(docRef, "population", newPopulation)
 
             // Success
             null

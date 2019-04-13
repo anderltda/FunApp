@@ -40,17 +40,14 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                newFragment(BlankFragment.newInstance("Notifications"))
+                //newFragment(BlankFragment.newInstance("Notifications"))
+                val next = Intent(this, Main2Activity::class.java)
+                startActivity(next)
+                //finish()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_talk -> {
-
-                //val next = Intent(this, ListaActivity::class.java)
-               // startActivity(next)
-                //finish()
                 newFragment(TalkFragment.newInstance())
-
-
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_setting -> {

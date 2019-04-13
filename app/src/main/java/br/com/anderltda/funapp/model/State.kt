@@ -5,4 +5,5 @@ class State {
     var name = ""
     var message = ""
     var population = 0
+
 }
