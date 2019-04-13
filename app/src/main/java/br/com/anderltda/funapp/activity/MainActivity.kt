@@ -1,23 +1,23 @@
 package br.com.anderltda.funapp.activity
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import br.com.anderltda.funapp.fragment.BlankFragment
 import br.com.anderltda.funapp.R
-import br.com.anderltda.funapp.fragment.HomeFragment
-import br.com.anderltda.funapp.fragment.SettingFragment
-import br.com.anderltda.funapp.fragment.TestFragment
+import br.com.anderltda.funapp.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         newFragment(HomeFragment.newInstance())
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
     }
 
     override fun onBackPressed() {
@@ -40,7 +40,17 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                newFragment(BlankFragment.newInstance("Notificacao"))
+                newFragment(BlankFragment.newInstance("Notifications"))
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_talk -> {
+
+                //val next = Intent(this, ListaActivity::class.java)
+               // startActivity(next)
+                //finish()
+                newFragment(TalkFragment.newInstance())
+
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_setting -> {
@@ -53,7 +63,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun newFragment(fragment: Fragment) {
         val ft = supportFragmentManager.beginTransaction()
-        //val fragment = SettingFragment.newInstance()
         ft.replace(R.id.flContainer, fragment)
         ft.addToBackStack(null)
         ft.commit()

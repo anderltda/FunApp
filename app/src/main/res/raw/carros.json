@@ -1,0 +1,38 @@
+[
+  {
+    "modelo" : "Fusca",
+    "fabricante" : "VW"
+  },
+  {
+    "modelo" : "Celta",
+    "fabricante" : "GM"
+  },
+  {
+    "modelo" : "Civic",
+    "fabricante" : "Honda"
+  },
+  {
+    "modelo" : "F500",
+    "fabricante" : "Ferrari"
+  },
+  {
+    "modelo" : "Corsa",
+    "fabricante" : "GM"
+  },
+  {
+    "modelo" : "F1000",
+    "fabricante" : "Ford"
+  },
+  {
+    "modelo" : "Camaro",
+    "fabricante" : "GM"
+  },
+  {
+    "modelo" : "City",
+    "fabricante" : "Honda"
+  },
+  {
+    "modelo" : "F500",
+    "fabricante" : "Ferrari"
+  }
+]
