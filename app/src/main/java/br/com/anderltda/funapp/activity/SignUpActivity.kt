@@ -24,15 +24,13 @@ class SignUpActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_sign_up)
 
-        setSupportActionBar(toolbar)
-
         auth = FirebaseAuth.getInstance()
 
-        buttonCreate.setOnClickListener {
+        bt_continue.setOnClickListener {
 
             loading.visibility = View.VISIBLE
 
-            auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
+            auth.createUserWithEmailAndPassword(et_email.text.toString(), et_password.text.toString())
 
                 .addOnCompleteListener(this) { task ->
 
@@ -42,7 +40,7 @@ class SignUpActivity : AppCompatActivity() {
 
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("TAG" , "createUserWithEmail:success")
-                        salvaNoRealtimeDatabase()
+                        saveFirestoneDatabase()
 
                     } else {
                         // If sign in fails, display a message to the user.
@@ -57,9 +55,9 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun salvaNoRealtimeDatabase() {
+    private fun saveFirestoneDatabase() {
 
-        val user = User(name.text.toString(), password.text.toString(), phone.text.toString())
+        val user = User(et_fullname.text.toString(), et_email.text.toString(), et_phone.text.toString())
 
         FirebaseDatabase.getInstance().getReference("Usuario")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
@@ -71,8 +69,8 @@ class SignUpActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG).show()
 
                     val intent = Intent()
-                    intent.putExtra("email", email.text.toString())
-                    intent.putExtra("password", password.text.toString())
+                    intent.putExtra("email", et_email.text.toString())
+                    intent.putExtra("password", et_password.text.toString())
                     setResult(Activity.RESULT_OK, intent)
                     finish()
 

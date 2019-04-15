@@ -19,7 +19,7 @@ class ItemAdapter(query: QueryCreator) : FirestoreAdapter<State, ItemViewHolder>
 
         val holder = ItemViewHolder.inflate(parent)
 
-        holder.buttonDelete.setOnClickListener {
+/*        holder.buttonDelete.setOnClickListener {
 
             val position = holder.adapterPosition
 
@@ -39,7 +39,7 @@ class ItemAdapter(query: QueryCreator) : FirestoreAdapter<State, ItemViewHolder>
 
             onClickListener?.invoke(position)
 
-        }
+        }*/
 
         return holder
     }

@@ -16,6 +16,10 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_main2.*
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import kotlinx.android.synthetic.main.item.*
+
 
 class Main2Activity : AppCompatActivity() {
 
@@ -42,7 +46,7 @@ class Main2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
 
         root = findViewById(R.id.root)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+       /* val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.setTitle(R.string.app_name)
         toolbar.inflateMenu(R.menu.refresh)
         toolbar.inflateMenu(R.menu.sort)
@@ -63,7 +67,7 @@ class Main2Activity : AppCompatActivity() {
             }
             false
         }
-
+*/
         adapter = ItemAdapter({
             refStates.limit(10)
                 .orderBy(sort, Query.Direction.ASCENDING)
@@ -87,7 +91,7 @@ class Main2Activity : AppCompatActivity() {
                 .show()
         }
 
-        val list = findViewById<RecyclerView>(R.id.list)
+        val list = findViewById<RecyclerView>(R.id.recyclerView)
         val layoutManager = LinearLayoutManager(this)
         list.adapter = adapter
         list.layoutManager = layoutManager
@@ -105,8 +109,7 @@ class Main2Activity : AppCompatActivity() {
 
         bt_send.setOnClickListener {
 
-
-
+            send(et_message.text.toString())
             Toast.makeText(this, et_message.text, Toast.LENGTH_LONG).show()
 
             et_message.clearFocus()
@@ -158,5 +161,24 @@ class Main2Activity : AppCompatActivity() {
                 e.printStackTrace()
                 snackbar("Failed to delete ${state.name}")
             }
+    }
+
+
+    fun send(message: String) {
+
+        // Add a new document with a generated id.
+        val data = HashMap<String, String>()
+        data.put("name", "Anderson")
+        data.put("message", message)
+
+        refStates.add(data)
+            .addOnSuccessListener(OnSuccessListener<DocumentReference> { documentReference ->
+                log("Transaction success!")
+            })
+            .addOnFailureListener(OnFailureListener { e ->
+                log("Transaction success!")
+            })
+
+
     }
 }

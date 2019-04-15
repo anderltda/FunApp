@@ -3,17 +3,14 @@ package br.com.anderltda.funapp.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import br.com.anderltda.funapp.R
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_login.*
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,7 +21,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        setSupportActionBar(toolbar)
 
         auth = FirebaseAuth.getInstance();
 
@@ -32,34 +28,40 @@ class LoginActivity : AppCompatActivity() {
             nextHome()
         }
 
-        buttonLogin.setOnClickListener {
+        bt_login.setOnClickListener {
 
             loading.visibility = View.VISIBLE
 
-            auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
-                .addOnCompleteListener {
+            if(et_login.text.toString().isNotBlank() && et_password.text.toString().isNotBlank())  {
 
+                auth.signInWithEmailAndPassword(et_login.text.toString(), et_password.text.toString())
+                    .addOnCompleteListener {
+
+                        loading.visibility = View.GONE
+
+                        if (it.isSuccessful) {
+                            nextHome()
+                        } else {
+                            Toast.makeText(this@LoginActivity, it.exception?.message,
+                                Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+            } else {
                 loading.visibility = View.GONE
-
-                if (it.isSuccessful) {
-                    nextHome()
-                } else {
-                    Toast.makeText(this@LoginActivity, it.exception?.message,
-                        Toast.LENGTH_LONG).show()
-                }
+                Toast.makeText(this@LoginActivity, "Informe login senha",
+                    Toast.LENGTH_LONG).show()
             }
+
+
         }
 
-        buttonSignin.setOnClickListener {
+/*        bt_signin.setOnClickListener {
             val next = Intent(this, SignUpActivity::class.java)
             startActivityForResult(next, CADASTRO_REQUEST_CODE)
-        }
+        }*/
 
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
     }
 
     private fun nextHome() {
@@ -76,8 +78,8 @@ class LoginActivity : AppCompatActivity() {
             CADASTRO_REQUEST_CODE -> {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
-                        email.setText(data?.getStringExtra("email"))
-                        password.setText(data?.getStringExtra("password"))
+                        et_login.setText(data?.getStringExtra("email"))
+                        et_password.setText(data?.getStringExtra("password"))
                     }
                 }
             }

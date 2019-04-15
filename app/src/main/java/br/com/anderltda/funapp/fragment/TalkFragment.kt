@@ -16,7 +16,9 @@ import android.view.ViewGroup
 import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.activity.Main2Activity
 import br.com.anderltda.funapp.adapter.ItemAdapter
+import br.com.anderltda.funapp.adapter.UserItemAdapter
 import br.com.anderltda.funapp.model.State
+import br.com.anderltda.funapp.model.User
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -25,14 +27,14 @@ class TalkFragment : Fragment() {
 
     private lateinit var root: ViewGroup
 
-    private lateinit var adapter: ItemAdapter
+    private lateinit var adapter: UserItemAdapter
 
     private val firestore: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
     }
 
     private val refStates by lazy {
-        firestore.collection("talks")
+        firestore.collection("users")
     }
 
     private var sort = SORT_NAME
@@ -45,9 +47,11 @@ class TalkFragment : Fragment() {
         root = view.findViewById(R.id.root)
 
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-        toolbar.setTitle(R.string.app_name)
-        toolbar.inflateMenu(R.menu.refresh)
-        toolbar.inflateMenu(R.menu.sort)
+        toolbar.inflateMenu(R.menu.menu_drawer_bottom)
+        toolbar.inflateMenu(R.menu.menu_add)
+        toolbar.inflateMenu(R.menu.menu_edit)
+        //toolbar.inflateMenu(R.menu.refresh)
+        //toolbar.inflateMenu(R.menu.sort)
         toolbar.setOnMenuItemClickListener { item ->
 
             when (item.itemId) {
@@ -80,27 +84,27 @@ class TalkFragment : Fragment() {
             false
         }
 
-        adapter = ItemAdapter({
+        adapter = UserItemAdapter({
             refStates.orderBy(sort, Query.Direction.ASCENDING)
         })
 
         adapter.onDeleteListener = { position ->
             //assume success, otherwise it will be updated in the next query
 
-            val state = adapter.get(position)
+            val user = adapter.get(position)
 
             val snapshot = adapter.getSnapshot(position)
 
-            delete(state, snapshot.reference)
+            delete(user, snapshot.reference)
 
         }
         adapter.onUpListener = { position ->
 
-            val state = adapter.get(position)
+            val user = adapter.get(position)
 
             val snapshot = adapter.getSnapshot(position)
 
-            incrementPopulation(state, snapshot.reference)
+            incrementPopulation(user, snapshot.reference)
 
         }
         adapter.onClickListener = { position ->
@@ -132,6 +136,7 @@ class TalkFragment : Fragment() {
             log("onHasLoadedAll")
         }
 
+
         return view
     }
 
@@ -144,7 +149,7 @@ class TalkFragment : Fragment() {
             .show()
     }
 
-    fun incrementPopulation(state: State, docRef: DocumentReference) {
+    fun incrementPopulation(user: User, docRef: DocumentReference) {
 
         firestore.runTransaction { transaction ->
 
@@ -165,11 +170,11 @@ class TalkFragment : Fragment() {
 
             e.printStackTrace()
 
-            snackbar("Failed to increment ${state.name}")
+            snackbar("Failed to increment ${user.name}")
         }
     }
 
-    fun delete(state: State, docRef: DocumentReference) {
+    fun delete(user: User, docRef: DocumentReference) {
 
         docRef.delete()
             .addOnSuccessListener {
@@ -177,7 +182,7 @@ class TalkFragment : Fragment() {
             }
             .addOnFailureListener { e ->
                 e.printStackTrace()
-                snackbar("Failed to delete ${state.name}")
+                snackbar("Failed to delete ${user.name}")
             }
     }
 

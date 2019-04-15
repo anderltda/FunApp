@@ -17,22 +17,22 @@ class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
-    var textTitle: TextView = itemView.findViewById(R.id.text_title)
+    var message: TextView = itemView.findViewById(R.id.tv_chat_text)
 
-    var textSubtitle: TextView = itemView.findViewById(R.id.text_subtitle)
+/*    var textSubtitle: TextView = itemView.findViewById(R.id.text_subtitle)
 
     var textOther: TextView = itemView.findViewById(R.id.text_other)
 
     var buttonDelete: View = itemView.findViewById(R.id.button_delete)
 
-    var buttonUp: View = itemView.findViewById(R.id.button_up)
+    var buttonUp: View = itemView.findViewById(R.id.button_up)*/
 
     fun bind(state: State) {
 
-        textTitle.text = state.name
+        //message.text = state.name
 
-        textSubtitle.text = state.message
+        message.text = state.message
 
-        textOther.text = state.population.toString()
+        //message.text = state.population.toString()
     }
 }
