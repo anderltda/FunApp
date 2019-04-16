@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.Toast
 import br.com.anderltda.funapp.R
+import br.com.anderltda.funapp.fragment.TalkFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_login.*
@@ -21,6 +23,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.inflateMenu(R.menu.menu_add)
 
         auth = FirebaseAuth.getInstance();
 
@@ -53,13 +58,25 @@ class LoginActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG).show()
             }
 
-
         }
 
-/*        bt_signin.setOnClickListener {
-            val next = Intent(this, SignUpActivity::class.java)
-            startActivityForResult(next, CADASTRO_REQUEST_CODE)
-        }*/
+        toolbar.setOnMenuItemClickListener { item ->
+
+            when (item.itemId) {
+
+                R.id.add_contact -> {
+
+                    val next = Intent(this, SignUpActivity::class.java)
+
+                    startActivityForResult(next, CADASTRO_REQUEST_CODE)
+
+                    return@setOnMenuItemClickListener true
+                }
+
+            }
+
+            false
+        }
 
 
     }
