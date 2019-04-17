@@ -22,8 +22,7 @@ import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 import android.content.Intent
-
-
+import android.support.v7.widget.Toolbar
 
 
 class Main2Activity : AppCompatActivity() {
@@ -59,10 +58,11 @@ class Main2Activity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance();
 
         root = findViewById(R.id.root)
-       /* val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.setTitle(R.string.app_name)
-        toolbar.inflateMenu(R.menu.refresh)
-        toolbar.inflateMenu(R.menu.sort)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.inflateMenu(R.menu.menu_add)
+        toolbar.inflateMenu(R.menu.menu_edit)
+
+
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_refresh -> {
@@ -80,7 +80,7 @@ class Main2Activity : AppCompatActivity() {
             }
             false
         }
-*/
+
         adapter = ItemAdapter({
             refStates.limit(200)
                 .orderBy(sort, Query.Direction.ASCENDING)

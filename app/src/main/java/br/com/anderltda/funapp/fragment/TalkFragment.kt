@@ -49,8 +49,6 @@ class TalkFragment : Fragment() {
         toolbar.inflateMenu(R.menu.menu_drawer_bottom)
         toolbar.inflateMenu(R.menu.menu_add)
         toolbar.inflateMenu(R.menu.menu_edit)
-        //toolbar.inflateMenu(R.menu.refresh)
-        //toolbar.inflateMenu(R.menu.sort)
         toolbar.setOnMenuItemClickListener { item ->
 
             when (item.itemId) {
@@ -109,13 +107,11 @@ class TalkFragment : Fragment() {
         adapter.onClickListener = { position ->
 
             val user = adapter.get(position)
-
             val ui = FirebaseAuth.getInstance().currentUser!!.uid
 
-            Log.d("IDDDDDDDDD ****** ", "${user.uid.toString() + ui}")
-
             val next = Intent(activity, Main2Activity::class.java)
-            next.putExtra("ROOM", user.uid.toString() + ui)
+            //next.putExtra("ROOM", user.uid.toString() + ui)
+            next.putExtra("ROOM", "ROOM")
             startActivity(next)
         }
 
