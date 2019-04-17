@@ -2,12 +2,12 @@ package br.com.anderltda.funapp.adapter
 
 import android.view.ViewGroup
 import br.com.anderltda.funapp.activity.ItemViewHolder
-import br.com.anderltda.funapp.model.State
 import com.commit451.firestoreadapter.FirestoreAdapter
 import com.commit451.firestoreadapter.QueryCreator
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
-
-class ItemAdapter(query: QueryCreator) : FirestoreAdapter<State, ItemViewHolder>(State::class.java, query) {
+class ItemAdapter(query: QueryCreator) : FirestoreAdapter<ChatData, ItemViewHolder>(ChatData::class.java, query) {
 
     var onDeleteListener: ((position: Int) -> Unit)? = null
 
@@ -15,9 +15,21 @@ class ItemAdapter(query: QueryCreator) : FirestoreAdapter<State, ItemViewHolder>
 
     var onClickListener: ((position: Int) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+    private val auth: FirebaseAuth by lazy {
+        FirebaseAuth.getInstance();
+    }
 
-        val holder = ItemViewHolder.inflate(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, position: Int): ItemViewHolder {
+
+        val chatData = get(position)
+
+        var index = 0
+
+        if (chatData.uid == auth.currentUser!!.uid) index = 0 else {
+            index = 1
+        }
+
+        val holder = ItemViewHolder.inflate(parent, index)
 
 /*        holder.buttonDelete.setOnClickListener {
 
@@ -46,5 +58,9 @@ class ItemAdapter(query: QueryCreator) : FirestoreAdapter<State, ItemViewHolder>
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(get(position))
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 }

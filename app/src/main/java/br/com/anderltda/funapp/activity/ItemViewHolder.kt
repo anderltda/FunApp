@@ -6,33 +6,43 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import br.com.anderltda.funapp.R
-import br.com.anderltda.funapp.model.State
+import br.com.anderltda.funapp.adapter.ChatData
 
 class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     companion object {
-        fun inflate(parent: ViewGroup): ItemViewHolder {
-            return ItemViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item, parent, false))
+        fun inflate(parent: ViewGroup, position: Int): ItemViewHolder {
+            when (position) {
+                0 -> {
+                    return ItemViewHolder(LayoutInflater.from(parent.context)
+                        .inflate(R.layout.layout_holder_me, parent, false))
+                }
+                1 -> {
+                    return ItemViewHolder(LayoutInflater.from(parent.context)
+                        .inflate(R.layout.layout_holder_you, parent, false))
+                }
+                else -> {
+                    return ItemViewHolder(LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item, parent, false))
+                }
+            }
         }
     }
 
+
     var message: TextView = itemView.findViewById(R.id.tv_chat_text)
 
-/*    var textSubtitle: TextView = itemView.findViewById(R.id.text_subtitle)
+    var time: TextView = itemView.findViewById(R.id.tv_time)
 
-    var textOther: TextView = itemView.findViewById(R.id.text_other)
+    //var name: TextView = itemView.findViewById(R.id.text_other)
 
-    var buttonDelete: View = itemView.findViewById(R.id.button_delete)
+    //var buttonDelete: View = itemView.findViewById(R.id.button_delete)
 
-    var buttonUp: View = itemView.findViewById(R.id.button_up)*/
+    //var buttonUp: View = itemView.findViewById(R.id.button_up)*/
 
-    fun bind(state: State) {
-
-        //message.text = state.name
-
-        message.text = state.message
-
-        //message.text = state.population.toString()
+    fun bind(chatData: ChatData) {
+        //name.text = chatData.name
+        time.text = chatData.time
+        message.text = chatData.message
     }
 }

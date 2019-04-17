@@ -8,15 +8,23 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import br.com.anderltda.funapp.R
+import br.com.anderltda.funapp.adapter.ChatData
 import br.com.anderltda.funapp.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.content_sign_up.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+
+    private val refStates by lazy {
+        FirebaseFirestore.getInstance().collection("users")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -57,10 +65,22 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun saveFirestoneDatabase() {
 
-        val user = User(et_fullname.text.toString(), et_email.text.toString(), et_phone.text.toString())
+        val ui = FirebaseAuth.getInstance().currentUser!!.uid
 
-        FirebaseDatabase.getInstance().getReference("Usuario")
-            .child(FirebaseAuth.getInstance().currentUser!!.uid)
+        val sdf = SimpleDateFormat("h:mm a")
+        val hora = Calendar.getInstance().getTime()
+        val dataFormatada = sdf.format(hora)
+
+        val user = User()
+        user.uid = ui
+        user.email = et_email.text.toString()
+        user.name = et_fullname.text.toString()
+        user.phone = et_phone.text.toString()
+        user.image = ""
+        user.create = dataFormatada
+
+        FirebaseDatabase.getInstance().getReference("USER_DEFAULT")
+            .child(ui)
             .setValue(user)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -79,7 +99,7 @@ class SignUpActivity : AppCompatActivity() {
                         it.exception?.message, Toast.LENGTH_LONG).show()
                 }
             }
+
+        refStates.document().set(user);
     }
-
-
 }

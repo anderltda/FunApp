@@ -1,9 +1,7 @@
 package br.com.anderltda.funapp.adapter
 
 import android.view.ViewGroup
-import br.com.anderltda.funapp.activity.ItemViewHolder
 import br.com.anderltda.funapp.activity.UserItemViewHolder
-import br.com.anderltda.funapp.model.State
 import br.com.anderltda.funapp.model.User
 import com.commit451.firestoreadapter.FirestoreAdapter
 import com.commit451.firestoreadapter.QueryCreator

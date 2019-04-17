@@ -1,8 +1,8 @@
 package br.com.anderltda.funapp.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -15,9 +15,7 @@ import android.view.ViewGroup
 
 import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.activity.Main2Activity
-import br.com.anderltda.funapp.adapter.ItemAdapter
 import br.com.anderltda.funapp.adapter.UserItemAdapter
-import br.com.anderltda.funapp.model.State
 import br.com.anderltda.funapp.model.User
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -109,8 +107,8 @@ class TalkFragment : Fragment() {
         }
         adapter.onClickListener = { position ->
 
-            Snackbar.make(root, "$position clicked", Snackbar.LENGTH_SHORT)
-                .show()
+            val next = Intent(activity, Main2Activity::class.java)
+            startActivity(next)
         }
 
         val list = view.findViewById<RecyclerView>(R.id.list)

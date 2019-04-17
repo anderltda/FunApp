@@ -21,11 +21,30 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_login)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.inflateMenu(R.menu.menu_add)
+        toolbar.setOnMenuItemClickListener { item ->
+
+            when (item.itemId) {
+
+                R.id.add_contact -> {
+
+                    val next = Intent(this, SignUpActivity::class.java)
+
+                    startActivityForResult(next, CADASTRO_REQUEST_CODE)
+
+                    return@setOnMenuItemClickListener true
+                }
+
+            }
+
+            false
+        }
 
         auth = FirebaseAuth.getInstance();
 
@@ -60,23 +79,7 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
-        toolbar.setOnMenuItemClickListener { item ->
 
-            when (item.itemId) {
-
-                R.id.add_contact -> {
-
-                    val next = Intent(this, SignUpActivity::class.java)
-
-                    startActivityForResult(next, CADASTRO_REQUEST_CODE)
-
-                    return@setOnMenuItemClickListener true
-                }
-
-            }
-
-            false
-        }
 
 
     }
