@@ -19,7 +19,7 @@ class UserItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var name: TextView = itemView.findViewById(R.id.tv_user_name)
 
-//    var textSubtitle: TextView = itemView.findViewById(R.id.text_subtitle)
+    var create: TextView = itemView.findViewById(R.id.tv_time)
 
  //   var textOther: TextView = itemView.findViewById(R.id.text_other)
 
@@ -28,8 +28,7 @@ class UserItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 //    var buttonUp: View = itemView.findViewById(R.id.button_up)
 
     fun bind(user: User) {
-
         name.text = user.name
-
+        create.text = user.create
     }
 }
