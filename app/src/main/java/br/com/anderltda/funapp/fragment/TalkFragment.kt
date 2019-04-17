@@ -17,6 +17,7 @@ import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.activity.Main2Activity
 import br.com.anderltda.funapp.adapter.UserItemAdapter
 import br.com.anderltda.funapp.model.User
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -107,7 +108,14 @@ class TalkFragment : Fragment() {
         }
         adapter.onClickListener = { position ->
 
+            val user = adapter.get(position)
+
+            val ui = FirebaseAuth.getInstance().currentUser!!.uid
+
+            Log.d("IDDDDDDDDD ****** ", "${user.uid.toString() + ui}")
+
             val next = Intent(activity, Main2Activity::class.java)
+            next.putExtra("ROOM", user.uid.toString() + ui)
             startActivity(next)
         }
 
@@ -120,7 +128,6 @@ class TalkFragment : Fragment() {
         list.layoutManager = layoutManager
 
         adapter.setupOnScrollListener(list, layoutManager)
-
 
         adapter.onLoadingMore = {
             log("onLoadingMore")

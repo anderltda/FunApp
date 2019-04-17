@@ -21,6 +21,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
+import android.content.Intent
+
+
 
 
 class Main2Activity : AppCompatActivity() {
@@ -39,7 +42,12 @@ class Main2Activity : AppCompatActivity() {
     }
 
     private val refStates by lazy {
-        firestore.collection("talks")
+
+        val it = intent
+
+        val room = it.getStringExtra("ROOM")
+
+        firestore.collection(room)
     }
 
     private var sort = SORT_NAME
@@ -196,9 +204,4 @@ class Main2Activity : AppCompatActivity() {
 
     }
 
-    fun test() {
-
-
-
-    }
 }
