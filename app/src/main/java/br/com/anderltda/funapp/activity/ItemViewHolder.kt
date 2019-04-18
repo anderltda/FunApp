@@ -13,17 +13,12 @@ class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     companion object {
         fun inflate(parent: ViewGroup, position: Int): ItemViewHolder {
             when (position) {
-                0 -> {
-                    return ItemViewHolder(LayoutInflater.from(parent.context)
-                        .inflate(R.layout.layout_holder_me, parent, false))
-                }
                 1 -> {
                     return ItemViewHolder(LayoutInflater.from(parent.context)
                         .inflate(R.layout.layout_holder_you, parent, false))
-                }
-                else -> {
+                } else -> {
                     return ItemViewHolder(LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item, parent, false))
+                        .inflate(R.layout.layout_holder_me, parent, false))
                 }
             }
         }

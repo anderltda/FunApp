@@ -25,7 +25,7 @@ class ItemAdapter(query: QueryCreator) : FirestoreAdapter<ChatData, ItemViewHold
 
         var index = 0
 
-        if (chatData.uid == auth.currentUser!!.uid) index = 0 else {
+        if (chatData.uid != auth.currentUser!!.uid) {
             index = 1
         }
 
