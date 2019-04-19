@@ -35,20 +35,16 @@ class MainActivity : AppCompatActivity() {
                 newFragment(HomeFragment.newInstance())
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
-                newFragment(BlankFragment.newInstance("Dashbord"))
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_notifications -> {
-                newFragment(BlankFragment.newInstance("Notifications"))
-                return@OnNavigationItemSelectedListener true
-            }
             R.id.navigation_talk -> {
                 newFragment(TalkFragment.newInstance())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_setting -> {
                 newFragment(SettingFragment.newInstance())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_about -> {
+                newFragment(AboutFragment.newInstance())
                 return@OnNavigationItemSelectedListener true
             }
         }

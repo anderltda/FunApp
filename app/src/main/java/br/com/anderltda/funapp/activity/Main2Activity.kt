@@ -53,7 +53,9 @@ class Main2Activity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main2)
 
         auth = FirebaseAuth.getInstance();
@@ -84,8 +86,11 @@ class Main2Activity : AppCompatActivity() {
         }
 
         adapter = ItemAdapter({
+
             refStates.orderBy(sort, Query.Direction.ASCENDING)
+
         })
+
 
         adapter.onDeleteListener = { position ->
 
@@ -118,6 +123,20 @@ class Main2Activity : AppCompatActivity() {
         list.adapter = adapter
 
         list.layoutManager = layoutManager
+
+        list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+
+                super.onScrolled(recyclerView, dx, dy)
+
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+            }
+        })
 
         adapter.setupOnScrollListener(list, layoutManager)
 

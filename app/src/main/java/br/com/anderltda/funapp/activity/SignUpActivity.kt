@@ -100,6 +100,6 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
 
-        refStates.document().set(user);
+        refStates.document(ui).set(user);
     }
 }

@@ -33,6 +33,8 @@ abstract class FirestoreAdapter<out T, VH : RecyclerView.ViewHolder>(private val
         super.onDocumentRemoved(change)
     }
 
+
+
     override fun clear() {
         items.clear()
         super.clear()

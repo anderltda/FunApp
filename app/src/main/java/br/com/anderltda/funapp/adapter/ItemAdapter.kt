@@ -58,6 +58,7 @@ class ItemAdapter(query: QueryCreator) : FirestoreAdapter<ChatData, ItemViewHold
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(get(position))
+
     }
 
     override fun getItemViewType(position: Int): Int {

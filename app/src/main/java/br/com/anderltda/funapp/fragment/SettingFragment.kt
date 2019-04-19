@@ -20,10 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.content_login.*
 import kotlinx.android.synthetic.main.fragment_setting.*
 
-/**
- * A simple [Fragment] subclass.
- *
- */
+
 class SettingFragment : Fragment() {
 
 
@@ -33,46 +30,14 @@ class SettingFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_setting, container, false)
 
-        val toggleButton = view.findViewById(R.id.toggleButton) as ToggleButton
 
-        toggleButton.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-
-            if (isChecked) {
-
-                FirebaseAuth.getInstance().signOut()
-
-                Toast.makeText(activity,"Turned On",Toast.LENGTH_LONG).show()
-
-            } else {
-
-                Toast.makeText(activity,"Turned Off",Toast.LENGTH_LONG).show()
-            }
-        })
-
-
-        // Inflate the layout for this fragment
         return view
     }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        //Toast.makeText(context,"Turned On",Toast.LENGTH_LONG).show()
-    }
-
 
     companion object {
         fun newInstance(): SettingFragment {
             val fragment = SettingFragment()
             return fragment
-        }
-    }
-
-    private fun removerUser() {
-        auth = FirebaseAuth.getInstance();
-
-        if (auth.currentUser != null) {
-            auth.currentUser!!.delete()
-            Log.d("Removido", auth.toString())
         }
     }
 

@@ -39,5 +39,6 @@ class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //name.text = chatData.name
         time.text = chatData.time
         message.text = chatData.message
+
     }
 }
