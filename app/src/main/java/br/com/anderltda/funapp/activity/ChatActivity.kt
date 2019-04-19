@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 import android.support.v7.widget.Toolbar
-import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -162,9 +161,16 @@ class ChatActivity : BaseActivity() {
         }
 
         bt_send.setOnClickListener {
-            send(et_message.text.toString())
-            list.smoothScrollToPosition(list.getAdapter()!!.getItemCount() - 1)
-            et_message.setText("")
+
+            if(et_message.text.toString().isNotBlank())  {
+
+                send(et_message.text.toString())
+
+                list.smoothScrollToPosition(list.getAdapter()!!.getItemCount() - 1)
+
+                et_message.setText("")
+            }
+
         }
     }
 

@@ -2,7 +2,6 @@ package br.com.anderltda.funapp.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -10,12 +9,11 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import br.com.anderltda.funapp.R
-import br.com.anderltda.funapp.adapter.ChatData
 import br.com.anderltda.funapp.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_sign_up.loading
 import kotlinx.android.synthetic.main.content_sign_up.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -43,7 +41,7 @@ class SignUpActivity : BaseActivity() {
 
         val back = toolbar.findViewById(R.id.tv_back) as TextView
         back.visibility = View.VISIBLE
-        back.setOnClickListener{
+        back.setOnClickListener {
             finish()
         }
 
@@ -51,27 +49,41 @@ class SignUpActivity : BaseActivity() {
 
             loading.visibility = View.VISIBLE
 
-            auth.createUserWithEmailAndPassword(et_email.text.toString(), et_password.text.toString())
+            if (et_fullname.text.toString().isNotBlank()
+                && et_phone.text.toString().isNotBlank()
+                && et_email.text.toString().isNotBlank()
+                && et_password.text.toString().isNotBlank()
+            ) {
 
-                .addOnCompleteListener(this) { task ->
+                auth.createUserWithEmailAndPassword(et_email.text.toString(), et_password.text.toString())
 
-                    loading.visibility = View.GONE
+                    .addOnCompleteListener(this) { task ->
 
-                    if (task.isSuccessful) {
+                        loading.visibility = View.GONE
 
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("TAG" , "createUserWithEmail:success")
-                        saveFirestoneDatabase()
+                        if (task.isSuccessful) {
 
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w("TAG", "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(this@SignUpActivity,
-                            task.exception?.message, Toast.LENGTH_LONG).show()
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("TAG", "createUserWithEmail:success")
+                            saveFirestoneDatabase()
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("TAG", "createUserWithEmail:failure", task.exception)
+                            Toast.makeText(this@SignUpActivity,
+                                task.exception?.message, Toast.LENGTH_LONG
+                            ).show()
+                        }
+
                     }
 
+            } else {
 
-                }
+                loading.visibility = View.GONE
+                Toast.makeText(this@SignUpActivity, "Todos os campos sao obrigatorio",
+                    Toast.LENGTH_LONG).show()
+
+            }
 
         }
     }
@@ -97,9 +109,11 @@ class SignUpActivity : BaseActivity() {
             .setValue(user)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Toast.makeText(this@SignUpActivity,
+                    Toast.makeText(
+                        this@SignUpActivity,
                         "Usuário cadastrado com sucesso!",
-                        Toast.LENGTH_LONG).show()
+                        Toast.LENGTH_LONG
+                    ).show()
 
                     val intent = Intent()
                     intent.putExtra("email", et_email.text.toString())
@@ -108,8 +122,10 @@ class SignUpActivity : BaseActivity() {
                     finish()
 
                 } else {
-                    Toast.makeText(this@SignUpActivity,
-                        it.exception?.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@SignUpActivity,
+                        it.exception?.message, Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
