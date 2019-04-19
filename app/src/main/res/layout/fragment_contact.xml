@@ -6,7 +6,7 @@
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragment.TalkFragment">
+        tools:context=".fragment.ContactFragment">
 
 
     <android.support.design.widget.AppBarLayout
@@ -16,35 +16,22 @@
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-
-        <android.support.design.widget.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@drawable/bg_gradient"
-                    app:layout_scrollFlags="scroll|enterAlways"
-                    app:layout_collapseMode="pin"/>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-
+            <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/list"
+            android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="635dp"
             android:scrollbars="vertical"
+            android:overScrollMode="always"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintTop_toBottomOf="@+id/appbar"
     />
 
 </android.support.constraint.ConstraintLayout>
+

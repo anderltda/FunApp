@@ -6,15 +6,15 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import br.com.anderltda.funapp.R
-import br.com.anderltda.funapp.fragment.TalkFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_login.*
 
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     private val CADASTRO_REQUEST_CODE = 1
 
@@ -27,12 +27,15 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.menu_add)
+        title = toolbar.findViewById(R.id.tv_title) as TextView
+        title.text = "Login"
+
+        toolbar.inflateMenu(R.menu.menu_sign_up)
         toolbar.setOnMenuItemClickListener { item ->
 
             when (item.itemId) {
 
-                R.id.add_contact -> {
+                R.id.sign_in -> {
 
                     val next = Intent(this, SignUpActivity::class.java)
 

@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/new_chatnew_chat"
-        android:title="User Photo"
+        android:id="@+id/sign_in"
+        android:title="@string/sign_plus"
         android:orderInCategory="100"
-        android:icon="@drawable/user1"
+        android:icon="@drawable/ic_action_add"
         app:showAsAction="ifRoom" />
 </menu>

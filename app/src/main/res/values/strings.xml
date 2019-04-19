@@ -6,7 +6,7 @@
     <string name="title_activity_sign_in">Sign</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_talk">Talk</string>
+    <string name="title_chat">Talk</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_settings">Settings</string>
     <string name="title_about">About</string>
@@ -39,7 +39,13 @@
     <string name="sign_message_header">Your phone number</string>
     <string name="sign_message_footer">Please confirm your country code and enter your phone number</string>
     <string name="sign_bt_continue">Continue</string>
+    <string name="sign_plus">Sign-in</string>
     <!-- TODO: Sign-in -->
+
+    <!-- TODO: Chat -->
+    <string name="chat_button_send">Send</string>
+    <string name="chat_message_your">Enter your message</string>
+    <!-- TODO: About -->
 
     <!-- TODO: About -->
     <string name="about_name_app">Messager</string>

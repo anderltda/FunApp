@@ -1,6 +1,5 @@
 package br.com.anderltda.funapp.activity
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
@@ -9,11 +8,10 @@ import android.util.Log
 import android.view.ViewGroup
 import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.adapter.ChatData
-import br.com.anderltda.funapp.adapter.ItemAdapter
+import br.com.anderltda.funapp.adapter.ChatAdapter
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.activity_main2.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DatabaseError
@@ -22,10 +20,14 @@ import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 import android.support.v7.widget.Toolbar
+import android.view.Gravity
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.content_chat.*
 
 
-class Main2Activity : AppCompatActivity() {
+class ChatActivity : BaseActivity() {
 
     companion object {
         const val SORT_TIMER = "time"
@@ -35,7 +37,7 @@ class Main2Activity : AppCompatActivity() {
 
     private lateinit var root: ViewGroup
 
-    private lateinit var adapter: ItemAdapter
+    private lateinit var adapter: ChatAdapter
 
     private lateinit var auth: FirebaseAuth
 
@@ -56,7 +58,7 @@ class Main2Activity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_chat)
 
         auth = FirebaseAuth.getInstance();
 
@@ -64,18 +66,27 @@ class Main2Activity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
+        title = toolbar.findViewById(R.id.tv_title) as TextView
+        title.text = "Messenger"
+
+        val back = toolbar.findViewById(R.id.tv_back) as TextView
+        back.visibility = View.VISIBLE
+        back.setOnClickListener{
+            finish()
+        }
+
         toolbar.inflateMenu(R.menu.menu_userphoto)
 
         toolbar.inflateMenu(R.menu.menu_edit)
 
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.action_refresh -> {
+                R.id.new_chat -> {
                     adapter.clear()
                     adapter.startListening()
                     return@setOnMenuItemClickListener true
                 }
-                R.id.action_sort -> {
+                R.id.new_chat -> {
                     snackbar("Sorting by $sort")
                     adapter.clear()
                     adapter.startListening()
@@ -85,7 +96,7 @@ class Main2Activity : AppCompatActivity() {
             false
         }
 
-        adapter = ItemAdapter({
+        adapter = ChatAdapter({
 
             refStates.orderBy(sort, Query.Direction.ASCENDING)
 
@@ -151,9 +162,9 @@ class Main2Activity : AppCompatActivity() {
         }
 
         bt_send.setOnClickListener {
-
             send(et_message.text.toString())
-
+            list.smoothScrollToPosition(list.getAdapter()!!.getItemCount() - 1)
+            et_message.setText("")
         }
     }
 

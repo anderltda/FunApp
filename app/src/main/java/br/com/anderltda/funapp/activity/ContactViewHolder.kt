@@ -8,12 +8,12 @@ import android.widget.TextView
 import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.model.User
 
-class UserItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     companion object {
-        fun inflate(parent: ViewGroup): UserItemViewHolder {
-            return UserItemViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.user_item, parent, false))
+        fun inflate(parent: ViewGroup): ContactViewHolder {
+            return ContactViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_contact, parent, false))
         }
     }
 

@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.adapter.ChatData
@@ -18,7 +20,7 @@ import kotlinx.android.synthetic.main.content_sign_up.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity() {
 
     private lateinit var auth: FirebaseAuth
 
@@ -33,6 +35,17 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         auth = FirebaseAuth.getInstance()
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+
+        title = toolbar.findViewById(R.id.tv_title) as TextView
+        title.text = "Sign-Up"
+
+        val back = toolbar.findViewById(R.id.tv_back) as TextView
+        back.visibility = View.VISIBLE
+        back.setOnClickListener{
+            finish()
+        }
 
         bt_continue.setOnClickListener {
 

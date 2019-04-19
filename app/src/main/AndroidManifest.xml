@@ -15,7 +15,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.Main2Activity"
+        <activity android:name=".activity.ChatActivity"
                   android:theme="@style/AppThemeFull">
         </activity>
 

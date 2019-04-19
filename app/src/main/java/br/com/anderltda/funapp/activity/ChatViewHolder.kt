@@ -8,17 +8,17 @@ import android.widget.TextView
 import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.adapter.ChatData
 
-class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     companion object {
-        fun inflate(parent: ViewGroup, position: Int): ItemViewHolder {
+        fun inflate(parent: ViewGroup, position: Int): ChatViewHolder {
             when (position) {
                 1 -> {
-                    return ItemViewHolder(LayoutInflater.from(parent.context)
-                        .inflate(R.layout.layout_holder_you, parent, false))
+                    return ChatViewHolder(LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_chat_you, parent, false))
                 } else -> {
-                    return ItemViewHolder(LayoutInflater.from(parent.context)
-                        .inflate(R.layout.layout_holder_me, parent, false))
+                    return ChatViewHolder(LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_chat_me, parent, false))
                 }
             }
         }

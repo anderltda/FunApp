@@ -7,7 +7,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.fragment.*
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main_.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        newFragment(HomeFragment.newInstance())
+        newFragment(ContactFragment.newInstance())
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
     }
@@ -31,12 +31,8 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView
         .OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
-                newFragment(HomeFragment.newInstance())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_talk -> {
-                newFragment(TalkFragment.newInstance())
+            R.id.navigation_chat -> {
+                newFragment(ContactFragment.newInstance())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_setting -> {
@@ -53,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun newFragment(fragment: Fragment) {
         val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.flContainer, fragment)
+        ft.replace(R.id.container, fragment)
         ft.addToBackStack(null)
         ft.commit()
     }

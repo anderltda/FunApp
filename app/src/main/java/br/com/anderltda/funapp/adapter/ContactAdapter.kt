@@ -1,13 +1,13 @@
 package br.com.anderltda.funapp.adapter
 
 import android.view.ViewGroup
-import br.com.anderltda.funapp.activity.UserItemViewHolder
+import br.com.anderltda.funapp.activity.ContactViewHolder
 import br.com.anderltda.funapp.model.User
 import com.commit451.firestoreadapter.FirestoreAdapter
 import com.commit451.firestoreadapter.QueryCreator
 
 
-class UserItemAdapter(query: QueryCreator) : FirestoreAdapter<User, UserItemViewHolder>(User::class.java, query) {
+class ContactAdapter(query: QueryCreator) : FirestoreAdapter<User, ContactViewHolder>(User::class.java, query) {
 
     var onDeleteListener: ((position: Int) -> Unit)? = null
 
@@ -15,9 +15,9 @@ class UserItemAdapter(query: QueryCreator) : FirestoreAdapter<User, UserItemView
 
     var onClickListener: ((position: Int) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
 
-        val holder = UserItemViewHolder.inflate(parent)
+        val holder = ContactViewHolder.inflate(parent)
 
         /*holder.buttonDelete.setOnClickListener {
 
@@ -44,7 +44,7 @@ class UserItemAdapter(query: QueryCreator) : FirestoreAdapter<User, UserItemView
         return holder
     }
 
-    override fun onBindViewHolder(holder: UserItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         holder.bind(get(position))
     }
 }

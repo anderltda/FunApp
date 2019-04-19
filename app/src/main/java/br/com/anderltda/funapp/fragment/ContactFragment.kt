@@ -12,21 +12,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import android.widget.TextView
 import br.com.anderltda.funapp.R
-import br.com.anderltda.funapp.activity.Main2Activity
-import br.com.anderltda.funapp.adapter.UserItemAdapter
+
+import br.com.anderltda.funapp.activity.ChatActivity
+import br.com.anderltda.funapp.adapter.ContactAdapter
 import br.com.anderltda.funapp.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
-class TalkFragment : Fragment() {
+class ContactFragment : Fragment() {
 
     private lateinit var root: ViewGroup
 
-    private lateinit var adapter: UserItemAdapter
+    private lateinit var adapter: ContactAdapter
 
     private val firestore: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
@@ -41,19 +42,22 @@ class TalkFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_talk, container, false)
+        val view = inflater.inflate(R.layout.fragment_contact, container, false)
 
         root = view.findViewById(R.id.root)
 
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.menu_drawer_bottom)
+
+        val title = toolbar.findViewById(R.id.tv_title) as TextView
+        title.text = "Contatos"
+
         toolbar.inflateMenu(R.menu.menu_add)
         toolbar.inflateMenu(R.menu.menu_edit)
         toolbar.setOnMenuItemClickListener { item ->
 
             when (item.itemId) {
 
-                R.id.action_refresh -> {
+                R.id.new_chat -> {
 
                     adapter.clear()
 
@@ -61,12 +65,9 @@ class TalkFragment : Fragment() {
 
                     return@setOnMenuItemClickListener true
                 }
-                R.id.action_sort -> {
+                R.id.add_contact -> {
 
-                    if (sort == SORT_NAME)
-                        sort = SORT_POPULATION
-                    else
-                        sort = SORT_NAME
+                    sort = SORT_NAME
 
                     snackbar("Sorting by $sort")
 
@@ -81,7 +82,7 @@ class TalkFragment : Fragment() {
             false
         }
 
-        adapter = UserItemAdapter({
+        adapter = ContactAdapter({
             refStates.orderBy(sort, Query.Direction.ASCENDING)
         })
 
@@ -109,13 +110,13 @@ class TalkFragment : Fragment() {
             val user = adapter.get(position)
             val ui = FirebaseAuth.getInstance().currentUser!!.uid
 
-            val next = Intent(activity, Main2Activity::class.java)
+            val next = Intent(activity, ChatActivity::class.java)
             //next.putExtra("ROOM", user.uid.toString() + ui)
             next.putExtra("ROOM", "ROOM")
             startActivity(next)
         }
 
-        val list = view.findViewById<RecyclerView>(R.id.list)
+        val list = view.findViewById<RecyclerView>(R.id.recyclerView)
 
         val layoutManager = LinearLayoutManager(context)
 
@@ -202,10 +203,8 @@ class TalkFragment : Fragment() {
 
         const val SORT_NAME = "name"
 
-        const val SORT_POPULATION = "message"
-
-        fun newInstance(): TalkFragment {
-            val fragment = TalkFragment()
+        fun newInstance(): ContactFragment {
+            val fragment = ContactFragment()
             return fragment
         }
     }
