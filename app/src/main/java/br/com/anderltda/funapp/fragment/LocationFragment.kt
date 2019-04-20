@@ -14,20 +14,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import br.com.anderltda.funapp.R
+import br.com.anderltda.funapp.activity.LocationActivity
 
-import br.com.anderltda.funapp.activity.ChatActivity
-import br.com.anderltda.funapp.adapter.ContactAdapter
+import br.com.anderltda.funapp.adapter.LocationAdapter
 import br.com.anderltda.funapp.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
-class ContactFragment : Fragment() {
+class LocationFragment : Fragment() {
 
     private lateinit var root: ViewGroup
 
-    private lateinit var adapter: ContactAdapter
+    private lateinit var adapter: LocationAdapter
 
     private val firestore: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
@@ -48,8 +48,9 @@ class ContactFragment : Fragment() {
 
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
 
+        val res = resources
         val title = toolbar.findViewById(R.id.tv_title) as TextView
-        title.text = resources.getString(R.string.title_contacts)
+        title.text = res.getString(R.string.title_location)
 
         toolbar.inflateMenu(R.menu.menu_add)
         toolbar.inflateMenu(R.menu.menu_edit)
@@ -82,7 +83,7 @@ class ContactFragment : Fragment() {
             false
         }
 
-        adapter = ContactAdapter({
+        adapter = LocationAdapter({
             refStates.orderBy(sort, Query.Direction.ASCENDING)
         })
 
@@ -110,7 +111,7 @@ class ContactFragment : Fragment() {
             val user = adapter.get(position)
             val ui = FirebaseAuth.getInstance().currentUser!!.uid
 
-            val next = Intent(activity, ChatActivity::class.java)
+            val next = Intent(activity, LocationActivity::class.java)
             //next.putExtra("ROOM", user.uid.toString() + ui)
             next.putExtra("ROOM", "ROOM")
             startActivity(next)
@@ -203,8 +204,8 @@ class ContactFragment : Fragment() {
 
         const val SORT_NAME = "name"
 
-        fun newInstance(): ContactFragment {
-            val fragment = ContactFragment()
+        fun newInstance(): LocationFragment {
+            val fragment = LocationFragment()
             return fragment
         }
     }

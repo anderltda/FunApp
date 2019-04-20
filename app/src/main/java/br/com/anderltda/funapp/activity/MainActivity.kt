@@ -7,7 +7,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.fragment.*
-import kotlinx.android.synthetic.main.activity_main_.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.navigation_chat -> {
                 newFragment(ContactFragment.newInstance())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_location -> {
+                newFragment(LocationFragment.newInstance())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_setting -> {

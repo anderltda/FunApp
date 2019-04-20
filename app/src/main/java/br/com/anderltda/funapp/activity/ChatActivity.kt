@@ -66,7 +66,7 @@ class ChatActivity : BaseActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
         title = toolbar.findViewById(R.id.tv_title) as TextView
-        title.text = "Messenger"
+        title.text = resources.getString(R.string.title_chat)
 
         val back = toolbar.findViewById(R.id.tv_back) as TextView
         back.visibility = View.VISIBLE

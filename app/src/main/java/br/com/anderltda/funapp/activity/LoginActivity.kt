@@ -28,7 +28,8 @@ class LoginActivity : BaseActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         title = toolbar.findViewById(R.id.tv_title) as TextView
-        title.text = "Login"
+        val res = resources
+        title.text = res.getString(R.string.title_activity_login)
 
         toolbar.inflateMenu(R.menu.menu_sign_up)
         toolbar.setOnMenuItemClickListener { item ->

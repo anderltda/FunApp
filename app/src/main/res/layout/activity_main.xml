@@ -11,16 +11,13 @@
         android:id="@+id/flContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/title_home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
 
-        <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar"/>
+        <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView

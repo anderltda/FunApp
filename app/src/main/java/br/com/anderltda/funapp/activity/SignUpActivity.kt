@@ -26,9 +26,9 @@ class SignUpActivity : BaseActivity() {
         FirebaseFirestore.getInstance().collection("users")
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(bundle: Bundle?) {
 
-        super.onCreate(savedInstanceState)
+        super.onCreate(bundle)
 
         setContentView(R.layout.activity_sign_up)
 
@@ -37,7 +37,8 @@ class SignUpActivity : BaseActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
         title = toolbar.findViewById(R.id.tv_title) as TextView
-        title.text = "Sign-Up"
+        val res = resources
+        title.text = res.getString(R.string.title_activity_sign_in)
 
         val back = toolbar.findViewById(R.id.tv_back) as TextView
         back.visibility = View.VISIBLE
