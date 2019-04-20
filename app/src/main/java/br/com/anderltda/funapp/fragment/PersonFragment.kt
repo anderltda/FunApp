@@ -3,16 +3,15 @@ package br.com.anderltda.funapp.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 
 import br.com.anderltda.funapp.R
+import br.com.anderltda.funapp.model.Contact
 import br.com.anderltda.funapp.model.User
+import br.com.anderltda.funapp.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -22,7 +21,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.content_person.*
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class PersonFragment : Fragment() {
 
@@ -34,8 +32,8 @@ class PersonFragment : Fragment() {
         FirebaseFirestore.getInstance()
     }
 
-    private val refStates by lazy {
-        FirebaseFirestore.getInstance().collection("users")
+    private val refContactsStates by lazy {
+        firestore.collection(Constants.CONTACTS_CHAT_APP_FIREBASE)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -50,10 +48,17 @@ class PersonFragment : Fragment() {
         title.text = resources.getString(R.string.title_person)
         toolbar.inflateMenu(R.menu.menu_perfil)
 
+        val loading = view.findViewById<LinearLayout>(R.id.loading) as LinearLayout
+        loading.visibility = View.VISIBLE
+
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+        val user = User()
+        user.uid = uid
+
         val ref = FirebaseDatabase.getInstance().getReference("USER_DEFAULT")
 
-        ref.child(FirebaseAuth.getInstance()
-            .currentUser!!.uid)
+        ref.child(user.uid)
             .addListenerForSingleValueEvent(object : ValueEventListener {
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -61,21 +66,30 @@ class PersonFragment : Fragment() {
                     for (childDataSnapshot in dataSnapshot.children) {
 
                         if(childDataSnapshot.key.toString() == "name") {
-                            et_fullname.setText(childDataSnapshot.value.toString())
+                            user.name = childDataSnapshot.value.toString()
+                            et_fullname.setText(user.name)
                         }
 
                         if(childDataSnapshot.key.toString() == "email") {
-                            //et_email.setText(childDataSnapshot.value.toString())
+                            user.email = childDataSnapshot.value.toString()
+                            et_email.setText(user.email)
                         }
 
                         if(childDataSnapshot.key.toString() == "phone") {
-                            et_phone.setText(childDataSnapshot.value.toString())
+                            user.phone = childDataSnapshot.value.toString()
+                            et_phone.setText(user.phone)
                         }
 
-                        Log.d("*************: ", childDataSnapshot.key.toString())
-                        Log.d("*************: ", childDataSnapshot.value.toString())
+                        if(childDataSnapshot.key.toString() == "create") {
+                            user.create = childDataSnapshot.value.toString()
+                        }
+
+                        //Log.d("*************: ", childDataSnapshot.key.toString())
+                        //Log.d("*************: ", childDataSnapshot.value.toString())
 
                     }
+
+                    loading.visibility = View.GONE
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -83,39 +97,48 @@ class PersonFragment : Fragment() {
                 }
             })
 
+        toolbar.setOnMenuItemClickListener { item ->
+
+            when (item.itemId) {
+
+                R.id.nav_address -> {
+
+                    newFragment(AddressFragment.newInstance(user.name))
+                    return@setOnMenuItemClickListener true
+                }
+
+            }
+
+            false
+        }
+
         val button = view.findViewById(R.id.bt_continue) as Button
 
         button.setOnClickListener {
-            saveFirestoneDatabase()
+            saveFirestoneDatabase(user)
         }
 
         return view
     }
 
-    private fun saveFirestoneDatabase() {
-
-        val ui = FirebaseAuth.getInstance().currentUser!!.uid
+    private fun saveFirestoneDatabase(user: User) {
 
         val sdf = SimpleDateFormat("h:mm a")
         val hora = Calendar.getInstance().getTime()
         val dataFormatada = sdf.format(hora)
 
-        val user = User()
-        user.uid = ui
-        //user.email = et_email.text.toString()
         user.name = et_fullname.text.toString()
         user.phone = et_phone.text.toString()
-        user.image = ""
         user.update = dataFormatada
 
-        FirebaseDatabase.getInstance().getReference("USER_DEFAULT")
-            .child(ui)
+        FirebaseDatabase.getInstance().getReference(Constants.USER_DEFAULT_APP_FIREBASE)
+            .child(user.uid)
             .setValue(user)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(
                         activity,
-                        "Usuário atualizado com sucesso!",
+                        resources.getString(R.string.success_message_default),
                         Toast.LENGTH_LONG
                     ).show()
 
@@ -128,8 +151,16 @@ class PersonFragment : Fragment() {
                 }
             }
 
-        refStates.document(ui).set(user);
+
+        val contact = Contact()
+        contact.uid = user.uid
+        contact.name = user.name
+        contact.phone = user.phone
+        contact.create = user.create
+        contact.update = user.update
+        refContactsStates.document(user.uid).set(contact);
     }
+
 
     companion object {
         fun newInstance(): PersonFragment {
@@ -138,5 +169,12 @@ class PersonFragment : Fragment() {
         }
     }
 
+
+    private fun newFragment(fragment: Fragment) {
+        val ft = activity!!.supportFragmentManager.beginTransaction()
+        ft.replace(R.id.container, fragment)
+        ft.addToBackStack(null)
+        ft.commit()
+    }
 
 }

@@ -7,16 +7,12 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.ViewGroup
 import br.com.anderltda.funapp.R
-import br.com.anderltda.funapp.adapter.ChatData
+import br.com.anderltda.funapp.model.Chat
 import br.com.anderltda.funapp.adapter.ChatAdapter
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 import android.support.v7.widget.Toolbar
@@ -179,7 +175,7 @@ class ChatActivity : BaseActivity() {
             .show()
     }
 
-    fun incrementDocument(chat: ChatData, docRef: DocumentReference) {
+    fun incrementDocument(chat: Chat, docRef: DocumentReference) {
 
         firestore.runTransaction { transaction ->
 
@@ -204,7 +200,7 @@ class ChatActivity : BaseActivity() {
         }
     }
 
-    fun delete(chat: ChatData, docRef: DocumentReference) {
+    fun delete(chat: Chat, docRef: DocumentReference) {
 
         docRef.delete().addOnSuccessListener {
 
@@ -223,7 +219,7 @@ class ChatActivity : BaseActivity() {
         val hora = Calendar.getInstance().getTime()
         val dataFormatada = sdf.format(hora)
 
-        val chat = ChatData()
+        val chat = Chat()
         chat.name = auth.currentUser!!.displayName.toString()
         chat.uid =  auth.currentUser!!.uid.toString()
         chat.time = dataFormatada

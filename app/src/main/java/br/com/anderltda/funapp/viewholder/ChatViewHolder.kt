@@ -1,4 +1,4 @@
-package br.com.anderltda.funapp.activity
+package br.com.anderltda.funapp.viewholder
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import br.com.anderltda.funapp.R
-import br.com.anderltda.funapp.adapter.ChatData
+import br.com.anderltda.funapp.model.Chat
 
 class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -14,11 +14,15 @@ class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun inflate(parent: ViewGroup, position: Int): ChatViewHolder {
             when (position) {
                 1 -> {
-                    return ChatViewHolder(LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_chat_you, parent, false))
+                    return ChatViewHolder(
+                        LayoutInflater.from(parent.context)
+                            .inflate(R.layout.item_chat_you, parent, false)
+                    )
                 } else -> {
-                    return ChatViewHolder(LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_chat_me, parent, false))
+                    return ChatViewHolder(
+                        LayoutInflater.from(parent.context)
+                            .inflate(R.layout.item_chat_me, parent, false)
+                    )
                 }
             }
         }
@@ -35,10 +39,10 @@ class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     //var buttonUp: View = itemView.findViewById(R.id.button_up)*/
 
-    fun bind(chatData: ChatData) {
-        //name.text = chatData.name
-        time.text = chatData.time
-        message.text = chatData.message
+    fun bind(chat: Chat) {
+        //name.text = chat.name
+        time.text = chat.time
+        message.text = chat.message
 
     }
 }

@@ -45,6 +45,11 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mapFragment.getMapAsync(this)
 
+        val it = intent
+        val lat = it.getStringExtra("lat")
+        val long = it.getStringExtra("long")
+        val name = it.getStringExtra("name")
+
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener {
             mapFragment.getMapAsync { googleMap ->
@@ -52,25 +57,12 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 googleMap.addMarker(
                     MarkerOptions()
-                        .position(LatLng(37.4233438, -122.0728817))
-                        .title("LinkedIn")
+                        .position(LatLng(lat.toDouble(), long.toDouble()))
+                        .title(name)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                 )
 
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(LatLng(37.4629101, -122.2449094))
-                        .title("Facebook")
-                        .snippet("Facebook HQ: Menlo Park")
-                )
-
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(LatLng(37.3092293, -122.1136845))
-                        .title("Apple")
-                )
-
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.4233438, -122.0728817), 10f))
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lat.toDouble(), long.toDouble()), 10f))
             }
         }
     }
@@ -87,28 +79,19 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        val it = intent
+        val lat = it.getStringExtra("lat")
+        val long = it.getStringExtra("long")
+        val name = it.getStringExtra("name")
 
         googleMap.addMarker(
             MarkerOptions()
-                .position(LatLng(37.4233438, -122.0728817))
-                .title("LinkedIn")
+                .position(LatLng(lat.toDouble(), long.toDouble()))
+                .title(name)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         )
 
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(LatLng(37.4629101, -122.2449094))
-                .title("Facebook")
-                .snippet("Facebook HQ: Menlo Park")
-        )
-
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(LatLng(37.3092293, -122.1136845))
-                .title("Apple")
-        )
-
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.4233438, -122.0728817), 10f))
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lat.toDouble(), long.toDouble()), 10f))
 
     }
 }

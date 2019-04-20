@@ -9,7 +9,9 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import br.com.anderltda.funapp.R
+import br.com.anderltda.funapp.model.Contact
 import br.com.anderltda.funapp.model.User
+import br.com.anderltda.funapp.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,8 +24,12 @@ class SignUpActivity : BaseActivity() {
 
     private lateinit var auth: FirebaseAuth
 
+    private val firestore: FirebaseFirestore by lazy {
+        FirebaseFirestore.getInstance()
+    }
+
     private val refStates by lazy {
-        FirebaseFirestore.getInstance().collection("users")
+        firestore.collection(Constants.CONTACTS_CHAT_APP_FIREBASE)
     }
 
     override fun onCreate(bundle: Bundle?) {
@@ -79,7 +85,7 @@ class SignUpActivity : BaseActivity() {
             } else {
 
                 loading.visibility = View.GONE
-                Toast.makeText(this@SignUpActivity, "Todos os campos sao obrigatorio",
+                Toast.makeText(this@SignUpActivity, resources.getString(R.string.erro_message_fields_required),
                     Toast.LENGTH_LONG).show()
 
             }
@@ -100,17 +106,16 @@ class SignUpActivity : BaseActivity() {
         user.email = et_email.text.toString()
         user.name = et_fullname.text.toString()
         user.phone = et_phone.text.toString()
-        user.image = ""
         user.create = dataFormatada
 
-        FirebaseDatabase.getInstance().getReference("USER_DEFAULT")
+        FirebaseDatabase.getInstance().getReference(Constants.USER_DEFAULT_APP_FIREBASE)
             .child(ui)
             .setValue(user)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(
                         this@SignUpActivity,
-                        "Usuário cadastrado com sucesso!",
+                        resources.getString(R.string.success_message_default),
                         Toast.LENGTH_LONG
                     ).show()
 
@@ -128,6 +133,11 @@ class SignUpActivity : BaseActivity() {
                 }
             }
 
-        refStates.document(ui).set(user);
+        val contact = Contact()
+        contact.uid = user.uid
+        contact.name = user.name
+        contact.phone = user.phone
+        contact.create = user.create
+        refStates.document(ui).set(contact);
     }
 }

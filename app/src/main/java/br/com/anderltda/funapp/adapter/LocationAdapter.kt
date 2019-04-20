@@ -1,14 +1,14 @@
 package br.com.anderltda.funapp.adapter
 
 import android.view.ViewGroup
-import br.com.anderltda.funapp.activity.ContactViewHolder
-import br.com.anderltda.funapp.activity.LocationViewHolder
+import br.com.anderltda.funapp.model.Contact
+import br.com.anderltda.funapp.viewholder.LocationViewHolder
 import br.com.anderltda.funapp.model.User
 import com.commit451.firestoreadapter.FirestoreAdapter
 import com.commit451.firestoreadapter.QueryCreator
 
 
-class LocationAdapter(query: QueryCreator) : FirestoreAdapter<User, LocationViewHolder>(User::class.java, query) {
+class LocationAdapter(query: QueryCreator) : FirestoreAdapter<Contact, LocationViewHolder>(Contact::class.java, query) {
 
     var onDeleteListener: ((position: Int) -> Unit)? = null
 

@@ -45,6 +45,7 @@
                 android:theme="@style/AppThemeFull">
         </activity>
 
+
         <activity
                 android:name=".activity.SplashScreenActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"

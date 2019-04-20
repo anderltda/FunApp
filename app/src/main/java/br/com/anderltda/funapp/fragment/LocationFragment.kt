@@ -17,7 +17,8 @@ import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.activity.LocationActivity
 
 import br.com.anderltda.funapp.adapter.LocationAdapter
-import br.com.anderltda.funapp.model.User
+import br.com.anderltda.funapp.model.Contact
+import br.com.anderltda.funapp.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -34,7 +35,7 @@ class LocationFragment : Fragment() {
     }
 
     private val refStates by lazy {
-        firestore.collection("users")
+        firestore.collection(Constants.CONTACTS_LOCATION_APP_FIREBASE)
     }
 
     private var sort = SORT_NAME
@@ -59,33 +60,35 @@ class LocationFragment : Fragment() {
             refStates.orderBy(sort, Query.Direction.ASCENDING)
         })
 
-        adapter.onDeleteListener = { position ->
-            //assume success, otherwise it will be updated in the next query
 
-            val user = adapter.get(position)
+        adapter.onDeleteListener = { position ->
+
+            val contact = adapter.get(position)
 
             val snapshot = adapter.getSnapshot(position)
 
-            delete(user, snapshot.reference)
+            delete(contact, snapshot.reference)
 
         }
         adapter.onUpListener = { position ->
 
-            val user = adapter.get(position)
+            val contact = adapter.get(position)
 
             val snapshot = adapter.getSnapshot(position)
 
-            incrementPopulation(user, snapshot.reference)
+            incrementPopulation(contact, snapshot.reference)
 
         }
         adapter.onClickListener = { position ->
 
-            val user = adapter.get(position)
+            val contact = adapter.get(position)
             val ui = FirebaseAuth.getInstance().currentUser!!.uid
 
             val next = Intent(activity, LocationActivity::class.java)
-            //next.putExtra("ROOM", user.uid.toString() + ui)
-            next.putExtra("ROOM", "ROOM")
+            next.putExtra("lat", contact.lat)
+            next.putExtra("long", contact.long)
+            next.putExtra("name", contact.name)
+
             startActivity(next)
         }
 
@@ -124,15 +127,15 @@ class LocationFragment : Fragment() {
             .show()
     }
 
-    fun incrementPopulation(user: User, docRef: DocumentReference) {
+    fun incrementPopulation(contact: Contact, docRef: DocumentReference) {
 
         firestore.runTransaction { transaction ->
 
             val snapshot = transaction.get(docRef)
 
-            val newPopulation = snapshot.getDouble("population")!! + 1
+            val newPopulation = snapshot.getDouble("number")!! + 1
 
-            transaction.update(docRef, "population", newPopulation)
+            transaction.update(docRef, "number", newPopulation)
 
             // Success
             null
@@ -145,11 +148,11 @@ class LocationFragment : Fragment() {
 
             e.printStackTrace()
 
-            snackbar("Failed to increment ${user.name}")
+            snackbar("Failed to increment ${contact.name}")
         }
     }
 
-    fun delete(user: User, docRef: DocumentReference) {
+    fun delete(contact: Contact, docRef: DocumentReference) {
 
         docRef.delete()
             .addOnSuccessListener {
@@ -157,7 +160,7 @@ class LocationFragment : Fragment() {
             }
             .addOnFailureListener { e ->
                 e.printStackTrace()
-                snackbar("Failed to delete ${user.name}")
+                snackbar("Failed to delete ${contact.name}")
             }
     }
 

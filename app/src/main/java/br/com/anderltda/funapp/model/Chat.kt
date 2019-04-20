@@ -1,6 +1,6 @@
-package br.com.anderltda.funapp.adapter
+package br.com.anderltda.funapp.model
 
-class ChatData {
+class Chat {
     var uid = ""
     var name = ""
     var message = ""

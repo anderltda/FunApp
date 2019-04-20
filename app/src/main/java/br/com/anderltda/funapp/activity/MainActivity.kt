@@ -1,5 +1,6 @@
 package br.com.anderltda.funapp.activity
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -40,32 +41,36 @@ class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView
         .OnNavigationItemSelectedListener { item ->
-
-
-
             when (item.itemId) {
-            R.id.navigation_chat -> {
-                newFragment(ContactFragment.newInstance())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_location -> {
-                newFragment(LocationFragment.newInstance())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_person -> {
-                newFragment(PersonFragment.newInstance())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_setting -> {
-                newFragment(SettingFragment.newInstance())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_about -> {
-                newFragment(AboutFragment.newInstance())
-                return@OnNavigationItemSelectedListener true
-            }
+                R.id.navigation_chat -> {
+                    newFragment(ContactFragment.newInstance())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_location -> {
+                    newFragment(LocationFragment.newInstance())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_person -> {
+                    newFragment(PersonFragment.newInstance())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_setting -> {
+                    newFragment(SettingFragment.newInstance())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_about -> {
+                    newFragment(AboutFragment.newInstance())
+                    return@OnNavigationItemSelectedListener true
+                }
         }
         false
+    }
+
+    companion object {
+        fun newInstance(): AddressFragment {
+            val fragment = AddressFragment()
+            return fragment
+        }
     }
 
     private fun newFragment(fragment: Fragment) {

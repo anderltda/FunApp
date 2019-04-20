@@ -1,12 +1,13 @@
 package br.com.anderltda.funapp.adapter
 
 import android.view.ViewGroup
-import br.com.anderltda.funapp.activity.ChatViewHolder
+import br.com.anderltda.funapp.viewholder.ChatViewHolder
+import br.com.anderltda.funapp.model.Chat
 import com.commit451.firestoreadapter.FirestoreAdapter
 import com.commit451.firestoreadapter.QueryCreator
 import com.google.firebase.auth.FirebaseAuth
 
-class ChatAdapter(query: QueryCreator) : FirestoreAdapter<ChatData, ChatViewHolder>(ChatData::class.java, query) {
+class ChatAdapter(query: QueryCreator) : FirestoreAdapter<Chat, ChatViewHolder>(Chat::class.java, query) {
 
     var onDeleteListener: ((position: Int) -> Unit)? = null
 

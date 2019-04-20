@@ -15,7 +15,8 @@
         <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="@dimen/space20">
@@ -29,40 +30,42 @@
                     style="@style/EditText"
                     android:textAppearance="@style/ExtraLight"/>
             <EditText
-                    android:id="@+id/et_fullname"
+                    android:id="@+id/et_zip_code"
                     android:layout_below="@id/tv_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/sign_fullname"
-                    android:inputType="text"
-                    style="@style/EditText"
+                    android:hint="@string/perfil_zip_code" style="@style/EditText"
                     android:focusable="true"
-                    android:textAppearance="@style/ExtraLight"/>
+                    android:drawableRight="@drawable/ic_search"
+                    android:maxLength="8"
+                    android:textAppearance="@style/ExtraLight"
+                    android:inputType="number|textPostalAddress"/>
             <TextView
-                    android:id="@+id/et_email"
-                    android:layout_below="@id/et_fullname"
+                    android:id="@+id/et_address"
+                    android:layout_below="@id/et_zip_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/sign_email" style="@style/EditText"
-                    android:textColor="@color/colorAccent"/>
+                    android:hint="@string/perfil_address"
+                    android:layout_marginTop="0dp" style="@style/EditText"
+                    android:textAppearance="@style/ExtraLight"/>
 
             <EditText
-                    android:id="@+id/et_phone"
-                    android:layout_below="@id/et_email"
+                    android:id="@+id/et_number"
+                    android:layout_below="@id/et_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/sign_phone"
-                    android:inputType="phone" style="@style/EditText"
+                    android:hint="@string/perfil_number"
+                    android:inputType="phone"
+                    style="@style/EditText"
                     android:focusable="true"
-                    android:maxLength="11"
                     android:textAppearance="@style/ExtraLight"/>
 
             <TextView
                     android:id="@+id/tv_info_confirm"
-                    android:layout_below="@id/et_phone"
+                    android:layout_below="@id/et_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/perfil_message_footer"
+                    android:text="@string/perfil_address_message_footer"
                     android:gravity="center_horizontal"
                     android:paddingLeft="@dimen/spaceLR"
                     android:paddingRight="@dimen/spaceLR"
