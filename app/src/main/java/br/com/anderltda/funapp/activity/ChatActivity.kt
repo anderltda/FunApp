@@ -76,25 +76,6 @@ class ChatActivity : BaseActivity() {
 
         toolbar.inflateMenu(R.menu.menu_userphoto)
 
-        toolbar.inflateMenu(R.menu.menu_edit)
-
-        toolbar.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.new_chat -> {
-                    adapter.clear()
-                    adapter.startListening()
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.new_chat -> {
-                    snackbar("Sorting by $sort")
-                    adapter.clear()
-                    adapter.startListening()
-                    return@setOnMenuItemClickListener true
-                }
-            }
-            false
-        }
-
         adapter = ChatAdapter({
 
             refStates.orderBy(sort, Query.Direction.ASCENDING)
@@ -238,32 +219,12 @@ class ChatActivity : BaseActivity() {
 
     fun send(message: String) {
 
-        val ref = FirebaseDatabase.getInstance().getReference("USER_DEFAULT")
-
-        ref.child(FirebaseAuth.getInstance()
-            .currentUser!!.uid)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                    for (childDataSnapshot in dataSnapshot.children) {
-
-                        Log.d("PARENT: ", childDataSnapshot.value.toString())
-
-                    }
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-
-                }
-        })
-
         val sdf = SimpleDateFormat("h:mm a")
         val hora = Calendar.getInstance().getTime()
         val dataFormatada = sdf.format(hora)
 
         val chat = ChatData()
-        chat.name = "Anderson"
+        chat.name = auth.currentUser!!.displayName.toString()
         chat.uid =  auth.currentUser!!.uid.toString()
         chat.time = dataFormatada
         chat.message = message

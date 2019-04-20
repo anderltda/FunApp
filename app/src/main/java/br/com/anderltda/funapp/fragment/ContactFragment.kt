@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.android.synthetic.main.item_contact.*
 
 class ContactFragment : Fragment() {
 
@@ -57,11 +58,9 @@ class ContactFragment : Fragment() {
 
             when (item.itemId) {
 
-                R.id.new_chat -> {
-
-                    adapter.clear()
-
-                    adapter.startListening()
+                R.id.edit -> {
+                    toolbar.inflateMenu(R.menu.menu_about)
+                    chk_list.visibility = View.VISIBLE
 
                     return@setOnMenuItemClickListener true
                 }

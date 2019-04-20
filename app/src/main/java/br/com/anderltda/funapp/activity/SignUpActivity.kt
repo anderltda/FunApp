@@ -35,10 +35,8 @@ class SignUpActivity : BaseActivity() {
         auth = FirebaseAuth.getInstance()
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-
         title = toolbar.findViewById(R.id.tv_title) as TextView
-        val res = resources
-        title.text = res.getString(R.string.title_activity_sign_in)
+        title.text = resources.getString(R.string.title_activity_sign_in)
 
         val back = toolbar.findViewById(R.id.tv_back) as TextView
         back.visibility = View.VISIBLE

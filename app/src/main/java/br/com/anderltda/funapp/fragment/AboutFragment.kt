@@ -26,7 +26,7 @@ class AboutFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_about, container, false)
 
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.menu_drawer_about)
+        toolbar.inflateMenu(R.menu.menu_about)
         toolbar.setOnMenuItemClickListener { item ->
 
             when (item.itemId) {

@@ -48,40 +48,12 @@ class LocationFragment : Fragment() {
 
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
 
-        val res = resources
         val title = toolbar.findViewById(R.id.tv_title) as TextView
-        title.text = res.getString(R.string.title_location)
+        title.text = resources.getString(R.string.title_location)
 
         toolbar.inflateMenu(R.menu.menu_add)
         toolbar.inflateMenu(R.menu.menu_edit)
-        toolbar.setOnMenuItemClickListener { item ->
 
-            when (item.itemId) {
-
-                R.id.new_chat -> {
-
-                    adapter.clear()
-
-                    adapter.startListening()
-
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.add_contact -> {
-
-                    sort = SORT_NAME
-
-                    snackbar("Sorting by $sort")
-
-                    adapter.clear()
-
-                    adapter.startListening()
-
-                    return@setOnMenuItemClickListener true
-                }
-            }
-
-            false
-        }
 
         adapter = LocationAdapter({
             refStates.orderBy(sort, Query.Direction.ASCENDING)

@@ -3,10 +3,12 @@
     <string name="app_name">Messenger</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_login">Login</string>
-    <string name="title_activity_sign_in">Sign</string>
+    <string name="title_activity_sign_in">Sign-In</string>
 
-    <string name="title_location">Location</string>
+
     <string name="title_chat">Talk</string>
+    <string name="title_location">Location</string>
+    <string name="title_person">Perfil</string>
     <string name="title_settings">Settings</string>
     <string name="title_about">About</string>
 
@@ -30,7 +32,7 @@
     <string name="login_message_footer">Please confirm your login and password</string>
     <!-- TODO: Login -->
 
-    <!-- TODO: Sign-in -->
+    <!-- TODO: Sign-in and Perfil-->
     <string name="sign_fullname">Full Name</string>
     <string name="sign_email">E-mail</string>
     <string name="sign_password">Password</string>
@@ -39,6 +41,11 @@
     <string name="sign_message_footer">Please confirm your country code and enter your phone number</string>
     <string name="sign_bt_continue">Continue</string>
     <string name="sign_plus">Sign-in</string>
+
+    <string name="perfil_zip_code">Zip code</string>
+    <string name="perfil_address">Address</string>
+    <string name="perfil_number">Number</string>
+    <string name="perfil_message_footer">Please update information personal</string>
     <!-- TODO: Sign-in -->
 
     <!-- TODO: Contacts -->
