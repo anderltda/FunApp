@@ -9,6 +9,8 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import br.com.anderltda.funapp.R
+import br.com.anderltda.funapp.data.dao.AddressDao
+import br.com.anderltda.funapp.data.entity.Address
 import br.com.anderltda.funapp.model.Contact
 import br.com.anderltda.funapp.model.User
 import br.com.anderltda.funapp.util.Constants
@@ -136,6 +138,7 @@ class SignUpActivity : BaseActivity() {
         val contact = Contact()
         contact.uid = user.uid
         contact.name = user.name
+        contact.email = user.email
         contact.phone = user.phone
         contact.create = user.create
         refStates.document(ui).set(contact);

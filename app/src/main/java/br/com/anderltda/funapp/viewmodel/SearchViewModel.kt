@@ -2,8 +2,8 @@ package br.com.anderltda.funapp.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import br.com.anderltda.funapp.model.Address
-import br.com.anderltda.funapp.repository.AddressRepository
+import br.com.anderltda.funapp.data.entity.Address
+import br.com.anderltda.funapp.data.repository.AddressRepository
 
 class SearchViewModel: ViewModel() {
 

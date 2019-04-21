@@ -1,5 +1,6 @@
 package br.com.anderltda.funapp.fragment
 
+import android.arch.persistence.room.Room
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
@@ -9,6 +10,9 @@ import android.view.ViewGroup
 import android.widget.*
 
 import br.com.anderltda.funapp.R
+import br.com.anderltda.funapp.data.AppDatabase
+import br.com.anderltda.funapp.data.dao.AddressDao
+import br.com.anderltda.funapp.data.entity.Address
 import br.com.anderltda.funapp.model.Contact
 import br.com.anderltda.funapp.model.User
 import br.com.anderltda.funapp.util.Constants
@@ -155,10 +159,12 @@ class PersonFragment : Fragment() {
         val contact = Contact()
         contact.uid = user.uid
         contact.name = user.name
+        contact.email = user.email
         contact.phone = user.phone
         contact.create = user.create
         contact.update = user.update
         refContactsStates.document(user.uid).set(contact);
+
     }
 
 

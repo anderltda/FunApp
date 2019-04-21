@@ -17,7 +17,7 @@ import br.com.anderltda.funapp.R
 import br.com.anderltda.funapp.activity.LocationActivity
 
 import br.com.anderltda.funapp.adapter.LocationAdapter
-import br.com.anderltda.funapp.model.Contact
+import br.com.anderltda.funapp.model.ContactLocation
 import br.com.anderltda.funapp.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -72,22 +72,22 @@ class LocationFragment : Fragment() {
         }
         adapter.onUpListener = { position ->
 
-            val contact = adapter.get(position)
+            val contactLocation = adapter.get(position)
 
             val snapshot = adapter.getSnapshot(position)
 
-            incrementPopulation(contact, snapshot.reference)
+            incrementPopulation(contactLocation, snapshot.reference)
 
         }
         adapter.onClickListener = { position ->
 
-            val contact = adapter.get(position)
-            val ui = FirebaseAuth.getInstance().currentUser!!.uid
+            val contactLocation = adapter.get(position)
+            //val ui = FirebaseAuth.getInstance().currentUser!!.uid
 
             val next = Intent(activity, LocationActivity::class.java)
-            next.putExtra("lat", contact.lat)
-            next.putExtra("long", contact.long)
-            next.putExtra("name", contact.name)
+            next.putExtra("lat", contactLocation.lat)
+            next.putExtra("long", contactLocation.long)
+            next.putExtra("name", contactLocation.name)
 
             startActivity(next)
         }
@@ -127,7 +127,7 @@ class LocationFragment : Fragment() {
             .show()
     }
 
-    fun incrementPopulation(contact: Contact, docRef: DocumentReference) {
+    fun incrementPopulation(contactLocation: ContactLocation, docRef: DocumentReference) {
 
         firestore.runTransaction { transaction ->
 
@@ -148,11 +148,11 @@ class LocationFragment : Fragment() {
 
             e.printStackTrace()
 
-            snackbar("Failed to increment ${contact.name}")
+            snackbar("Failed to increment ${contactLocation.name}")
         }
     }
 
-    fun delete(contact: Contact, docRef: DocumentReference) {
+    fun delete(contactLocation: ContactLocation, docRef: DocumentReference) {
 
         docRef.delete()
             .addOnSuccessListener {
@@ -160,7 +160,7 @@ class LocationFragment : Fragment() {
             }
             .addOnFailureListener { e ->
                 e.printStackTrace()
-                snackbar("Failed to delete ${contact.name}")
+                snackbar("Failed to delete ${contactLocation.name}")
             }
     }
 

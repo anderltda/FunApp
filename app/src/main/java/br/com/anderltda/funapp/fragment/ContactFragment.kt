@@ -106,8 +106,8 @@ class ContactFragment : Fragment() {
         }
         adapter.onClickListener = { position ->
 
-            val contact = adapter.get(position)
-            val ui = FirebaseAuth.getInstance().currentUser!!.uid
+            //val contact = adapter.get(position)
+            //val ui = FirebaseAuth.getInstance().currentUser!!.uid
 
             val next = Intent(activity, ChatActivity::class.java)
             next.putExtra("ROOM", "ROOM")

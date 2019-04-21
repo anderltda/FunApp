@@ -41,7 +41,7 @@
                     android:textAppearance="@style/ExtraLight"
                     android:inputType="number|textPostalAddress"/>
             <TextView
-                    android:id="@+id/et_address"
+                    android:id="@+id/tv_address"
                     android:layout_below="@id/et_zip_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
 
             <EditText
                     android:id="@+id/et_number"
-                    android:layout_below="@id/et_address"
+                    android:layout_below="@id/tv_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/perfil_number"

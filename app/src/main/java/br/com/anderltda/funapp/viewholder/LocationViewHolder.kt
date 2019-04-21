@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import br.com.anderltda.funapp.R
-import br.com.anderltda.funapp.model.Contact
-import br.com.anderltda.funapp.model.User
+import br.com.anderltda.funapp.model.ContactLocation
 
 class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -29,7 +28,7 @@ class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 //    var buttonUp: View = itemView.findViewById(R.id.button_up)
 
-    fun bind(contact: Contact) {
-        name.text = contact.name
+    fun bind(contactLocation: ContactLocation) {
+        name.text = contactLocation.name
     }
 }

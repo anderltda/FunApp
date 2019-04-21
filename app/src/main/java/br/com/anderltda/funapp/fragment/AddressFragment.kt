@@ -1,8 +1,8 @@
 package br.com.anderltda.funapp.fragment
 
-
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.arch.persistence.room.Room
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
@@ -14,7 +14,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import br.com.anderltda.funapp.R
-import br.com.anderltda.funapp.model.Contact
+import br.com.anderltda.funapp.data.AppDatabase
+import br.com.anderltda.funapp.data.dao.AddressDao
+import br.com.anderltda.funapp.data.entity.Address
+import br.com.anderltda.funapp.model.ContactLocation
 import br.com.anderltda.funapp.util.Constants
 import br.com.anderltda.funapp.viewmodel.SearchViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -31,7 +34,13 @@ class AddressFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var appDatabase: AppDatabase
+
+    private lateinit var addressDao: AddressDao
+
     private lateinit var searchViewModel: SearchViewModel
+
+    private var address = Address()
 
     private val firestore: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
@@ -62,23 +71,43 @@ class AddressFragment : Fragment() {
             }
         }
 
-        val zipcode: EditText = view.findViewById(R.id.et_zip_code) as EditText
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
 
-        zipcode.setOnFocusChangeListener { v, hasFocus ->
-            if(!hasFocus) {
-                //searchAddress()
-            }
+        appDatabase = Room.databaseBuilder(
+            activity!!.applicationContext,
+            AppDatabase::class.java,
+            "funapp-store-database")
+            .allowMainThreadQueries()
+            .build()
+
+        addressDao = appDatabase.addressDao()
+        address = addressDao.findId(uid)
+
+        val et_zip_code: EditText = view.findViewById(R.id.et_zip_code) as EditText
+        val tv_address: TextView = view.findViewById(R.id.tv_address) as TextView
+        val et_number: EditText = view.findViewById(R.id.et_number) as EditText
+
+        if(address != null) {
+            et_zip_code.setText(address.cep)
+            tv_address.setText(address.toString())
+            et_number.setText(address.number)
         }
 
-
-        zipcode.setOnClickListener{
+        et_zip_code.setOnClickListener{
             searchAddress()
         }
 
         val button = view.findViewById(R.id.bt_continue) as Button
 
         button.setOnClickListener {
-            saveFirestoneDatabase()
+
+            if(et_zip_code.text.isNotBlank() && tv_address.text.isNotBlank() && et_number.text.isNotBlank()) {
+                saveFirestoneDatabase(uid)
+            } else {
+                Toast.makeText(activity, resources.getString(R.string.erro_message_fields_required),
+                    Toast.LENGTH_LONG).show()
+            }
+
         }
 
         return view
@@ -91,7 +120,8 @@ class AddressFragment : Fragment() {
         searchViewModel.buscar(et_zip_code.text.toString())
 
         searchViewModel.address.observe(this, Observer {
-            et_address.setText(it?.toString())
+            tv_address.setText(it?.toString())
+            this.address = it!!
         })
 
         searchViewModel.mensagemErro.observe(this, Observer {
@@ -110,22 +140,35 @@ class AddressFragment : Fragment() {
         })
     }
 
-    private fun saveFirestoneDatabase() {
-
-        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+    private fun saveFirestoneDatabase(uid: String) {
 
         val sdf = SimpleDateFormat("h:mm a")
         val hora = Calendar.getInstance().getTime()
         val dataFormatada = sdf.format(hora)
 
-        val contact = Contact()
-        contact.update = dataFormatada
-        contact.zipcode = et_zip_code.text.toString()
-        contact.address = et_address.text.toString()
-        contact.number = et_number.text.toString()
-        contact.lat = "-23.4834015"
-        contact.long = "-46.661051"
-        refLocationStates.document(uid).set(contact);
+        val contactLocation = ContactLocation()
+        contactLocation.uid = uid
+        contactLocation.name = "Anderson"
+        contactLocation.create = dataFormatada
+        contactLocation.update = dataFormatada
+        contactLocation.zipcode = et_zip_code.text.toString()
+        contactLocation.address = this.address.toString()
+        contactLocation.number = et_number.text.toString()
+        contactLocation.lat = "-23.4834015"
+        contactLocation.long = "-46.661051"
+        refLocationStates.document(uid).set(contactLocation);
+
+        this.address.id = uid
+        this.address.cep = et_zip_code.text.toString()
+        this.address.lat = "-23.4834015"
+        this.address.long = "-46.661051"
+        this.address.number = contactLocation.number
+        this.address.create = Calendar.getInstance().getTime()
+        addressDao.save(this.address)
+
+        Toast.makeText(activity,
+            resources.getString(R.string.success_message_default),
+            Toast.LENGTH_LONG).show()
     }
 
     companion object {

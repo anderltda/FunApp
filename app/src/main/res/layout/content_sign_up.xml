@@ -76,8 +76,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/sign_phone"
-                    android:inputType="phone"
-                    style="@style/EditText"
+                    android:inputType="phone" style="@style/EditText"
+                    android:maxLength="11"
                     android:focusable="true"
                     android:textAppearance="@style/ExtraLight"/>
             <TextView

@@ -1,7 +1,7 @@
-package br.com.anderltda.funapp.repository
+package br.com.anderltda.funapp.data.repository
 
 import br.com.anderltda.funapp.api.getAddressService
-import br.com.anderltda.funapp.model.Address
+import br.com.anderltda.funapp.data.entity.Address
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
