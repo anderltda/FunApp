@@ -42,6 +42,8 @@ class AddressFragment : Fragment() {
 
     private var address = Address()
 
+    private var name = ""
+
     private val firestore: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
     }
@@ -110,6 +112,8 @@ class AddressFragment : Fragment() {
 
         }
 
+        name = arguments!!.getString("name")
+
         return view
     }
 
@@ -148,8 +152,8 @@ class AddressFragment : Fragment() {
 
         val contactLocation = ContactLocation()
         contactLocation.uid = uid
-        contactLocation.name = "Anderson"
-        contactLocation.create = dataFormatada
+        contactLocation.name = this.name
+        contactLocation.create = SimpleDateFormat("h:mm a").format(this.address.create)
         contactLocation.update = dataFormatada
         contactLocation.zipcode = et_zip_code.text.toString()
         contactLocation.address = this.address.toString()
