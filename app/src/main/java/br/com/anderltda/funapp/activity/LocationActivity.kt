@@ -71,7 +71,7 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
                googleMap.addMarker(
                     MarkerOptions()
                         .position(latLngDestination)
-                        .title(name)
+                        .title("Destination")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                 )
 
