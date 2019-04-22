@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_delete_user" translatable="false">Excluir</string>
+    <string name="about_logout" translatable="false">Sair</string>
+    <string name="about_name_app" translatable="false">Messager</string>
+    <string name="about_name_dev" translatable="false">Desenvolvido por Anderson Nascimento</string>
+    <string name="action_settings" translatable="false">Configurações</string>
+    <string name="chat_button_send" translatable="false">Enviar</string>
+    <string name="chat_message_your" translatable="false">Entre com sua messagem</string>
+    <string name="erro_message_fields_required" translatable="false">"Todos os campos são obrigatórios "</string>
+    <string name="login_bt_login" translatable="false">Entrar</string>
+    <string name="login_bt_sign_in_now" translatable="false">Cadastra-se</string>
+    <string name="login_message_footer" translatable="false">Por favor, confirme seu email e senha</string>
+    <string name="login_message_header" translatable="false">E-mail e Senha</string>
+    <string name="login_password" translatable="false">Senha</string>
+    <string name="perfil_address">Endereço</string>
+    <string name="perfil_address_message_footer">Por favor, informe o seu endereço para localização</string>
+    <string name="perfil_menu_address">Endereço</string>
+    <string name="perfil_message_footer">Por favor, atualize suas informações pessoais</string>
+    <string name="perfil_number">Numero</string>
+    <string name="perfil_zip_code">Cep</string>
+    <string name="sign_fullname" translatable="false">Nome Completo</string>
+    <string name="sign_message_footer">"Por favor, confirme codigo pais e o seu numero de celular "</string>
+    <string name="sign_message_header" translatable="false">Seu numero de celular</string>
+    <string name="sign_password">Senha</string>
+    <string name="sign_phone">Celular (11) 99999-9999</string>
+    <string name="sign_plus">Cadastrar-se</string>
+    <string name="success_message_default">Processo efetuado com sucesso</string>
+    <string name="title_about">Sobre</string>
+    <string name="title_activity_maps" translatable="false">Mapas</string>
+    <string name="title_activity_sign_in" translatable="false">Cadastrar-se</string>
+    <string name="title_address">Endereço</string>
+    <string name="title_chat">Papo</string>
+    <string name="title_contacts">Contato</string>
+    <string name="title_location">Localizaçao</string>
+    <string name="title_person">Perfil</string>
+    <string name="title_settings" translatable="false">Configurações</string>
+    <string name="about_version" translatable="false">Versao 1.0.0</string>
+</resources>

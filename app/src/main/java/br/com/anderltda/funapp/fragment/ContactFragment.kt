@@ -52,9 +52,8 @@ class ContactFragment : Fragment() {
 
         val title = toolbar.findViewById(R.id.tv_title) as TextView
         title.text = resources.getString(R.string.title_contacts)
-
-        toolbar.inflateMenu(R.menu.menu_add)
-        toolbar.inflateMenu(R.menu.menu_edit)
+        //toolbar.inflateMenu(R.menu.menu_add)
+        //toolbar.inflateMenu(R.menu.menu_edit)
         toolbar.setOnMenuItemClickListener { item ->
 
             when (item.itemId) {

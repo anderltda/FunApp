@@ -26,6 +26,11 @@ import kotlinx.android.synthetic.main.content_address.*
 import kotlinx.android.synthetic.main.fragment_address.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.Context
+import android.support.v4.content.ContextCompat.getSystemService
 
 
 class AddressFragment : Fragment() {
@@ -83,7 +88,7 @@ class AddressFragment : Fragment() {
             .build()
 
         addressDao = appDatabase.addressDao()
-        address = addressDao.findId(uid)
+        var address = addressDao.findId(uid)
 
         val et_zip_code: EditText = view.findViewById(R.id.et_zip_code) as EditText
         val tv_address: TextView = view.findViewById(R.id.tv_address) as TextView
@@ -99,12 +104,12 @@ class AddressFragment : Fragment() {
             searchAddress()
         }
 
-        val button = view.findViewById(R.id.bt_continue) as Button
+        val button = view.findViewById(br.com.anderltda.funapp.R.id.bt_continue) as Button
 
         button.setOnClickListener {
 
             if(et_zip_code.text.isNotBlank() && tv_address.text.isNotBlank() && et_number.text.isNotBlank()) {
-                saveFirestoneDatabase(uid)
+                saveFirestoneDatabase(uid, address)
             } else {
                 Toast.makeText(activity, resources.getString(R.string.erro_message_fields_required),
                     Toast.LENGTH_LONG).show()
@@ -117,7 +122,15 @@ class AddressFragment : Fragment() {
         return view
     }
 
+
+    private fun hideSoftKeyboard() {
+        val inputMethodManager = activity!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+        inputMethodManager!!.hideSoftInputFromWindow(view!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+    }
+
     fun searchAddress() {
+
+        hideSoftKeyboard();
 
         searchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
 
@@ -144,11 +157,17 @@ class AddressFragment : Fragment() {
         })
     }
 
-    private fun saveFirestoneDatabase(uid: String) {
+    private fun saveFirestoneDatabase(uid: String, address: Address) {
 
         val sdf = SimpleDateFormat("h:mm a")
         val hora = Calendar.getInstance().getTime()
         val dataFormatada = sdf.format(hora)
+
+        if(address == null){
+            this.address.create = Calendar.getInstance().getTime()
+        } else {
+            this.address.create = address.create
+        }
 
         val contactLocation = ContactLocation()
         contactLocation.uid = uid
@@ -167,7 +186,6 @@ class AddressFragment : Fragment() {
         this.address.lat = "-23.4834015"
         this.address.long = "-46.661051"
         this.address.number = contactLocation.number
-        this.address.create = Calendar.getInstance().getTime()
         addressDao.save(this.address)
 
         Toast.makeText(activity,

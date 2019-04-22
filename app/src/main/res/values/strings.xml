@@ -1,47 +1,45 @@
 <resources>
-    
+
     <string name="app_name">Messenger</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_login">Login</string>
-    <string name="title_activity_sign_in">Sign-In</string>
+    <string name="title_activity_sign_in" translatable="false">Sign-In</string>
 
 
-    <string name="title_chat">Talk</string>
-    <string name="title_location">Location</string>
-    <string name="title_person">Perfil</string>
-    <string name="title_address">Address</string>
-    <string name="title_settings">Settings</string>
-    <string name="title_about">About</string>
+    <string name="title_chat" translatable="false">Talk</string>
+    <string name="title_location" translatable="false">Location</string>
+    <string name="title_address" translatable="false">Address</string>
+    <string name="title_settings" translatable="false">Settings</string>
+    <string name="title_about" translatable="false">About</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings" translatable="false">Settings</string>
+
 
     <!-- TODO: Message default app -->
-    <string name="success_message_default">Processo efetuado com sucesso</string>
-    <string name="erro_message_fields_required">Todos os campos sao obrigatorio</string>
-
+    <string name="success_message_default" translatable="false">Successful process</string>
+    <string name="erro_message_fields_required" translatable="false">All fields are required</string>
 
 
     <!-- TODO: Login -->
-    <string name="login_message_header">Login and Password</string>
+    <string name="login_message_header" translatable="false">Login and Password</string>
     <string name="login_login">Login</string>
-    <string name="login_password">Password</string>
-    <string name="login_bt_login">Login</string>
-    <string name="login_bt_sign_in_now">Sign in now</string>
-    <string name="login_message_footer">Please confirm your login and password</string>
+    <string name="login_password" translatable="false">Password</string>
+    <string name="login_bt_login" translatable="false">Login</string>
+    <string name="login_bt_sign_in_now" translatable="false">Sign in now</string>
+    <string name="login_message_footer" translatable="false">Please confirm your login and password</string>
     <!-- TODO: Login -->
 
     <!-- TODO: Sign-in and Perfil-->
-    <string name="sign_fullname">Full Name</string>
+    <string name="sign_fullname" translatable="false">Full Name</string>
     <string name="sign_email">E-mail</string>
-    <string name="sign_password">Password</string>
-    <string name="sign_phone">Phone (11) 99999-9999</string>
-    <string name="sign_message_header">Your phone number</string>
+    <string name="sign_password" translatable="false">Password</string>
+    <string name="sign_phone" translatable="false">Phone (11) 99999-9999</string>
+    <string name="sign_message_header" translatable="false">Your phone number</string>
     <string name="sign_message_footer">Please confirm your country code and enter your phone number</string>
     <string name="sign_bt_continue">Continue</string>
-    <string name="sign_plus">Sign-in</string>
+    <string name="sign_plus" translatable="false">Sign-in</string>
 
     <string name="perfil_menu_address">Address</string>
     <string name="perfil_zip_code">Zip code</string>
@@ -53,22 +51,23 @@
     <!-- TODO: Sign-in -->
 
     <!-- TODO: Contacts -->
-    <string name="title_contacts">Contacts</string>
+    <string name="title_contacts" translatable="false">Contacts</string>
     <!-- TODO: About -->
 
     <!-- TODO: Chat -->
-    <string name="chat_button_send">Send</string>
-    <string name="chat_message_your">Enter your message</string>
+    <string name="chat_button_send" translatable="false">Send</string>
+    <string name="chat_message_your" translatable="false">Enter your message</string>
     <!-- TODO: About -->
 
 
     <!-- TODO: About -->
     <string name="about_name_app">Messager</string>
-    <string name="about_name_dev">Desenvolvido por Anderson Nascimento</string>
-    <string name="about_version">Version 1.0.0</string>
-    <string name="about_logout">Logout</string>
-    <string name="about_delete_user">Remove</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="about_name_dev" translatable="false">Anderson Nascimento Developer</string>
+    <string name="about_version" translatable="false">Version 1.0.0</string>
+    <string name="about_logout" translatable="false">Logout</string>
+    <string name="about_delete_user" translatable="false">Remove</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="title_person" translatable="false">Profile</string>
     <!-- TODO: About -->
 
 

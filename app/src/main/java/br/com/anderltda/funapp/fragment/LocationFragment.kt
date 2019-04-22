@@ -52,10 +52,6 @@ class LocationFragment : Fragment() {
         val title = toolbar.findViewById(R.id.tv_title) as TextView
         title.text = resources.getString(R.string.title_location)
 
-        toolbar.inflateMenu(R.menu.menu_add)
-        toolbar.inflateMenu(R.menu.menu_edit)
-
-
         adapter = LocationAdapter({
             refStates.orderBy(sort, Query.Direction.ASCENDING)
         })
