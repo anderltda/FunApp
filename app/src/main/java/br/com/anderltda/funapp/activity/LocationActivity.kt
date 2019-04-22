@@ -24,6 +24,9 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var root: ViewGroup
 
+    val lat = ""
+    val long = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
@@ -53,16 +56,26 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener {
             mapFragment.getMapAsync { googleMap ->
-                googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+
+                val latLngOrigin = LatLng(-23.5565804, -46.662113)
+                val latLngDestination = LatLng(lat.toDouble(), long.toDouble())
 
                 googleMap.addMarker(
                     MarkerOptions()
-                        .position(LatLng(lat.toDouble(), long.toDouble()))
+                        .position(latLngOrigin)
                         .title(name)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                 )
 
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lat.toDouble(), long.toDouble()), 10f))
+               googleMap.addMarker(
+                    MarkerOptions()
+                        .position(latLngDestination)
+                        .title(name)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                )
+
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngOrigin, 12f))
             }
         }
     }
